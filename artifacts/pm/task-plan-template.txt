@@ -1,0 +1,106 @@
+TASK PLAN
+=========
+
+Plan ID: [PLAN-YYYY-MM-DD-NNN]
+Created: [Date]
+PM: [Atlas PM Role]
+Related Spec: [SPEC-ID]
+Status: [Draft | Approved | In Progress | Complete | Blocked]
+
+---
+
+OBJECTIVE
+---------
+
+[One sentence: what is being built or changed?]
+
+
+SUCCESS CRITERIA
+----------------
+
+[Observable or testable criteria for completion]
+
+1. 
+2. 
+
+
+CONSTRAINTS
+-----------
+
+[Boundaries and limitations for this work]
+
+- Maximum task size: [micro/small/medium]
+- Time constraint: [if any]
+- Technical constraints: 
+- 
+
+
+SCOPE
+-----
+
+IN SCOPE:
+- 
+- 
+
+OUT OF SCOPE:
+- 
+- 
+
+
+TASK BREAKDOWN
+--------------
+
+[Break work into small, actionable tasks. Use micro/small tasks preferred.]
+
+Task 1: [Task Name]
+  Size: [micro/small/medium]
+  Dependencies: [None | Task N]
+  Acceptance Criteria:
+    - 
+    - 
+  Verification:
+    - 
+
+Task 2: [Task Name]
+  Size: [micro/small/medium]
+  Dependencies: [None | Task N]
+  Acceptance Criteria:
+    - 
+    - 
+  Verification:
+    - 
+
+[Continue for remaining tasks, max 12 unless requested]
+
+
+NEXT TASK
+---------
+
+[Identify which task should be executed first]
+
+Task ID: 
+Rationale: 
+
+
+ASSUMPTIONS
+-----------
+
+[What is assumed to be true for this plan?]
+
+- 
+- 
+
+
+RISKS
+-----
+
+[What could block or derail this work?]
+
+- 
+- 
+
+
+NOTES
+-----
+
+[Additional context or references]

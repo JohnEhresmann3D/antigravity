@@ -1,0 +1,158 @@
+{
+    "sprite_sheet": "res://assets/sprites/enemies/turret.png",
+    "sheet_size": [
+        1024,
+        1024
+    ],
+    "frame_size": [
+        32,
+        32
+    ],
+    "enemy_name": "Turret",
+    "animations": {
+        "idle": {
+            "description": "Gentle swaying/scanning, barrel rotating slowly",
+            "row": 1,
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 6,
+            "loop": true
+        },
+        "aiming": {
+            "description": "Tracking player, barrel pointing at target",
+            "row": 2,
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 10,
+            "loop": false
+        },
+        "firing": {
+            "description": "Recoil animation, muzzle flash",
+            "row": 3,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 128,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 160,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 12,
+            "loop": false
+        },
+        "damaged": {
+            "description": "Hit reaction, sparks and smoke",
+            "row": 4,
+            "frame_count": 3,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 15,
+            "loop": false
+        }
+    },
+    "stats": {
+        "health": 3,
+        "fire_rate": 2.0,
+        "projectile_speed": 200,
+        "detection_range": 300
+    }
+}

@@ -1,0 +1,426 @@
+PLAYER CONTROLLER SETUP GUIDE
+==============================
+
+Created: 2026-01-06
+For: Antigravity - Cosmo Player Controller
+Engine: Godot 4.5
+
+---
+
+SCRIPTS CREATED
+===============
+
+1. gravity_manager.gd (Autoload/Singleton)
+   Location: scripts/autoload/gravity_manager.gd
+   Purpose: Global gravity system management
+
+2. player.gd (Player Controller)
+   Location: scripts/player/player.gd
+   Purpose: Main player movement and abilities
+
+3. gravity_zone.gd (Area2D Component)
+   Location: scripts/gravity/gravity_zone.gd
+   Purpose: Custom gravity zones (zero-G, etc.)
+
+---
+
+GODOT PROJECT SETUP
+===================
+
+STEP 1: Configure Autoload (Singleton)
+---------------------------------------
+
+1. Open Project → Project Settings → Autoload
+2. Add new autoload:
+   - Path: res://scripts/autoload/gravity_manager.gd
+   - Node Name: GravityManager
+   - Enable: ✓
+3. Click "Add"
+4. Close Project Settings
+
+STEP 2: Configure Input Map
+----------------------------
+
+Open Project → Project Settings → Input Map
+
+Add these actions:
+
+**Movement Actions:**
+
+move_left:
+- Keyboard: A or Left Arrow
+- Gamepad: Left Stick Left or D-Pad Left
+- Touch: (handled in code for mobile)
+
+move_right:
+- Keyboard: D or Right Arrow
+- Gamepad: Left Stick Right or D-Pad Right
+- Touch: (handled in code for mobile)
+
+jump:
+- Keyboard: Space or W or Up Arrow
+- Gamepad: Button A (Xbox) / Cross (PlayStation)
+- Touch: (handled in code for mobile)
+
+run:
+- Keyboard: Shift (Left or Right)
+- Gamepad: Button B (Xbox) / Circle (PlayStation)
+- Touch: (handled in code for mobile)
+
+**Ability Actions:**
+
+gravity_flip:
+- Keyboard: E or Q
+- Gamepad: Button X (Xbox) / Square (PlayStation)
+- Touch: (handled in code for mobile)
+
+STEP 3: Create Player Scene
+----------------------------
+
+1. Create new scene: Scene → New Scene
+2. Select "Other Node" → CharacterBody2D
+3. Rename root node to "Player"
+4. Attach script: scripts/player/player.gd
+
+5. Add child nodes:
+   - AnimatedSprite2D (name: AnimatedSprite2D)
+   - CollisionShape2D (name: CollisionShape2D)
+
+6. Configure AnimatedSprite2D:
+   - Click AnimatedSprite2D node
+   - In Inspector → Animation → Sprite Frames → [New SpriteFrames]
+   - Click the SpriteFrames resource to open editor
+   - Import cosmo_spritesheet.png
+   - Create animations (see Animation Setup below)
+
+7. Configure CollisionShape2D:
+   - Click CollisionShape2D node
+   - In Inspector → Shape → [New RectangleShape2D]
+   - Adjust size to fit character (~40x56 pixels)
+
+8. Save scene: scenes/player/player.tscn
+
+STEP 4: Animation Setup
+-----------------------
+
+In SpriteFrames editor (AnimatedSprite2D):
+
+1. Delete "default" animation
+2. Create animations:
+
+**idle** (4 frames, 8 FPS, Loop: ON)
+- Add frames from Row 1 of sprite sheet
+- Frames: 0-3
+
+**walk** (6 frames, 10 FPS, Loop: ON)
+- Add frames from Row 2
+- Frames: 0-5
+
+**run** (6 frames, 12 FPS, Loop: ON)
+- Add frames from Row 3
+- Frames: 0-5
+
+**jump** (4 frames, 12 FPS, Loop: OFF)
+- Add frames from Row 4
+- Frames: 0-3
+
+**fall** (3 frames, 10 FPS, Loop: ON)
+- Add frames from Row 5
+- Frames: 0-2
+
+**land** (3 frames, 15 FPS, Loop: OFF)
+- Add frames from Row 6
+- Frames: 0-2
+
+**gravity_flip** (6 frames, 12 FPS, Loop: OFF)
+- Add frames from Row 7
+- Frames: 0-5
+
+**damage** (3 frames, 15 FPS, Loop: OFF)
+- Add frames from Row 8
+- Frames: 0-2
+
+STEP 5: Player Parameters
+--------------------------
+
+Select Player node and configure in Inspector:
+
+**Movement:**
+- Move Speed: 200
+- Run Speed: 300
+- Acceleration: 1000
+- Friction: 800
+
+**Jump:**
+- Jump Velocity: -400
+- Jump Cut Multiplier: 0.5
+- Coyote Time: 0.1
+- Jump Buffer Time: 0.1
+
+**Gravity:**
+- Fall Gravity Multiplier: 1.5
+- Max Fall Speed: 500
+
+**Abilities:**
+- Has Gravity Flip: false (unlocked later)
+- Gravity Flip Cooldown: 0.5
+
+---
+
+CREATING A TEST LEVEL
+======================
+
+1. Create new scene: Scene → New Scene
+2. Select "2D Scene" (creates Node2D root)
+3. Rename to "TestLevel"
+
+4. Add TileMap for platforms:
+   - Add child: TileMap
+   - Configure TileSet (import platform_tileset.png)
+   - Paint some platforms
+
+5. Add Player:
+   - Scene → Instantiate Child Scene
+   - Select scenes/player/player.tscn
+   - Position above platforms
+
+6. Add Camera2D:
+   - Add child to Player: Camera2D
+   - Enable "Enabled" in Inspector
+   - Adjust zoom if needed (2x recommended)
+
+7. Save scene: scenes/levels/test_level.tscn
+
+8. Set as main scene:
+   - Project → Project Settings → Application → Run
+   - Main Scene: res://scenes/levels/test_level.tscn
+
+---
+
+TESTING THE PLAYER
+==================
+
+Run the project (F5) and test:
+
+✓ Left/Right movement (A/D or arrows)
+✓ Running (hold Shift while moving)
+✓ Jumping (Space)
+✓ Variable jump height (release Space early)
+✓ Coyote time (jump shortly after leaving platform)
+✓ Jump buffering (press jump just before landing)
+✓ Animations play correctly
+✓ Sprite flips when changing direction
+
+Gravity flip won't work yet (has_gravity_flip = false)
+
+---
+
+UNLOCKING GRAVITY FLIP
+=======================
+
+To test gravity flip:
+
+Method 1: In Editor
+- Select Player node in scene
+- In Inspector → Abilities → Has Gravity Flip: ✓
+
+Method 2: In Code (after boss defeat)
+```gdscript
+# In boss defeat script:
+player.unlock_gravity_flip()
+```
+
+Method 3: Debug (temporary)
+- In player.gd, change line:
+  @export var has_gravity_flip: bool = true
+
+---
+
+CREATING GRAVITY ZONES
+=======================
+
+1. Create new scene: Scene → New Scene
+2. Select "Other Node" → Area2D
+3. Rename to "GravityZone"
+4. Attach script: scripts/gravity/gravity_zone.gd
+
+5. Add CollisionShape2D:
+   - Add child: CollisionShape2D
+   - Shape: RectangleShape2D
+   - Adjust size to cover desired area
+
+6. Configure zone type in Inspector:
+   - Zone Type: Normal / Zero-G / Custom
+   - Custom Gravity Direction: (if Custom selected)
+   - Gravity Strength Multiplier: 1.0
+
+7. Save scene: scenes/environment/gravity_zone.tscn
+
+8. Instantiate in levels where needed
+
+Example: Zero-G Zone
+- Zone Type: Zero-G
+- Place in level
+- Player floats when entering
+
+---
+
+MOBILE CONTROLS (TODO)
+=======================
+
+For mobile, you'll need to add:
+
+1. Virtual joystick for movement
+2. Jump button (on-screen)
+3. Ability button (on-screen)
+
+This can be added later using TouchScreenButton nodes
+or a third-party virtual joystick addon.
+
+---
+
+DEBUGGING
+=========
+
+Enable Debug Mode in GravityManager:
+
+1. Open scripts/autoload/gravity_manager.gd
+2. Change line: var debug_mode: bool = true
+3. Run game
+4. Use arrow keys to change gravity direction
+   - Up Arrow: Gravity up
+   - Down Arrow: Gravity down
+   - Left Arrow: Gravity left
+   - Right Arrow: Gravity right
+
+This helps test gravity mechanics without unlocking abilities.
+
+---
+
+COMMON ISSUES
+=============
+
+**Player falls through floor:**
+- Check CollisionShape2D is configured
+- Check TileMap has collision enabled
+- Check player is on correct physics layer
+
+**Animations don't play:**
+- Verify SpriteFrames is configured
+- Check animation names match code
+- Ensure AnimatedSprite2D node is named correctly
+
+**Gravity flip doesn't work:**
+- Check has_gravity_flip is true
+- Verify GravityManager is in autoload
+- Check input action "gravity_flip" is configured
+
+**Player moves too fast/slow:**
+- Adjust move_speed and run_speed parameters
+- Check acceleration and friction values
+
+**Jump feels wrong:**
+- Adjust jump_velocity (more negative = higher)
+- Adjust fall_gravity_multiplier (higher = faster fall)
+- Adjust jump_cut_multiplier (lower = more control)
+
+---
+
+NEXT STEPS
+==========
+
+1. ✓ Set up GravityManager autoload
+2. ✓ Configure input map
+3. ✓ Create player scene
+4. ✓ Set up animations
+5. ✓ Create test level
+6. ⬜ Test all movement
+7. ⬜ Add mobile controls
+8. ⬜ Implement health system
+9. ⬜ Add resource collection
+10. ⬜ Create ability unlock system
+
+---
+
+CODE STRUCTURE
+==============
+
+Player Controller Flow:
+
+_physics_process(delta):
+  1. Handle input
+  2. Update timers (coyote, jump buffer, cooldowns)
+  3. Apply gravity
+  4. Handle movement (acceleration/friction)
+  5. Handle jump (with coyote time and buffering)
+  6. Handle abilities (gravity flip)
+  7. Move character (move_and_slide)
+  8. Update animations
+  9. Update sprite direction/rotation
+
+Modular Gravity System:
+
+GravityManager (Singleton)
+  ↓ provides gravity vector
+Player Controller
+  ↓ applies to velocity
+CharacterBody2D.move_and_slide()
+
+GravityZone (Area2D)
+  ↓ modifies GravityManager when entered
+  ↓ restores when exited
+
+---
+
+PERFORMANCE NOTES
+=================
+
+The player controller is optimized for mobile:
+- Uses move_and_slide() (efficient)
+- Minimal per-frame calculations
+- Caches references in _ready()
+- Uses signals for gravity changes (event-driven)
+
+Expected performance: 60 FPS on mid-range mobile devices
+
+---
+
+EXTENDING THE CONTROLLER
+=========================
+
+To add new abilities:
+
+1. Add export variable for ability unlock
+2. Add cooldown timer variable
+3. Add input action in Project Settings
+4. Add handling in _handle_abilities()
+5. Create activation function
+6. Add animation if needed
+
+Example: Double Jump
+```gdscript
+@export var has_double_jump: bool = false
+var jumps_remaining: int = 2
+
+func _handle_jump():
+	if jump_just_pressed and jumps_remaining > 0:
+		_perform_jump()
+		jumps_remaining -= 1
+
+func _physics_process(delta):
+	if is_on_floor():
+		jumps_remaining = 2 if has_double_jump else 1
+```
+
+---
+
+NOTES
+=====
+
+The player controller follows the modular design philosophy:
+- Gravity system is separate and reusable
+- Abilities can be toggled independently
+- Easy to extend with new mechanics
+- Mobile-friendly architecture
+
+All parameters are exposed for easy tweaking and balancing.

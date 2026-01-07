@@ -1,0 +1,654 @@
+ENEMY ASSETS DOCUMENTATION
+==========================
+
+Created: 2026-01-06
+Theme: Satirical Happy Space Station Enemies
+Style: 90s Saturday Morning Cartoon
+
+---
+
+ENEMY OVERVIEW
+==============
+
+Three enemy types designed to introduce different gameplay challenges:
+1. Flyer Drone - Flying patrol enemy
+2. Turret - Stationary projectile shooter
+3. Antigrav Orb - Gravity-defying enemy (teases antigravity mechanic)
+
+All enemies follow the satirical happy aesthetic:
+- Overly cheerful expressions
+- Bright, vibrant colors
+- Thick black outlines (2-3 pixels)
+- Smooth animations
+- Friendly appearance despite being hostile
+
+---
+
+ENEMY 1: FLYER DRONE
+====================
+
+File: flyer_drone.png
+Location: assets/sprites/enemies/flyer_drone.png
+Frame Size: 32x32 pixels
+Total Frames: 19
+
+Description:
+Cute floating robot drone with propeller. Patrols areas and chases player.
+Cyan and yellow color scheme with happy screen face.
+
+ANIMATIONS:
+
+ROW 1: IDLE/FLOAT (6 frames)
+- Gentle bobbing up and down
+- Propeller spinning
+- Happy blinking face
+- FPS: 8-10
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 0, 32, 32)
+- Frame 2: (32, 0, 32, 32)
+- Frame 3: (64, 0, 32, 32)
+- Frame 4: (96, 0, 32, 32)
+- Frame 5: (128, 0, 32, 32)
+- Frame 6: (160, 0, 32, 32)
+
+ROW 2: FLYING (6 frames)
+- Moving forward animation
+- Propeller spinning faster
+- Body tilting forward
+- Determined expression
+- FPS: 10-12
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 32, 32, 32)
+- Frame 2: (32, 32, 32, 32)
+- Frame 3: (64, 32, 32, 32)
+- Frame 4: (96, 32, 32, 32)
+- Frame 5: (128, 32, 32, 32)
+- Frame 6: (160, 32, 32, 32)
+
+ROW 3: ALERT (4 frames)
+- Spotted player animation
+- Exclamation mark appears
+- Eyes widen
+- Propeller speeds up
+- FPS: 12
+- Loop: No (transition to Flying)
+
+Frame Coordinates:
+- Frame 1: (0, 64, 32, 32)
+- Frame 2: (32, 64, 32, 32)
+- Frame 3: (64, 64, 32, 32)
+- Frame 4: (96, 64, 32, 32)
+
+ROW 4: DAMAGED (3 frames)
+- Hit reaction
+- Sparks flying
+- Sad/hurt expression
+- Wobbling
+- FPS: 15
+- Loop: No
+
+Frame Coordinates:
+- Frame 1: (0, 96, 32, 32)
+- Frame 2: (32, 96, 32, 32)
+- Frame 3: (64, 96, 32, 32)
+
+BEHAVIOR:
+- Patrols horizontally or in patterns
+- Detects player within range
+- Chases player when alerted
+- Deals contact damage
+- Can be defeated by jumping on or shooting
+
+STATS (Suggested):
+- Health: 2 hits
+- Speed: Medium
+- Damage: 1 (contact)
+- Detection Range: 5-7 tiles
+
+
+---
+
+ENEMY 2: TURRET
+===============
+
+File: turret.png
+Location: assets/sprites/enemies/turret.png
+Frame Size: 32x32 pixels
+Total Frames: 17
+
+Description:
+Stationary turret/cannon that fires projectiles. Pink and purple color scheme.
+Happy face that gets excited when firing. Can rotate to track player.
+
+ANIMATIONS:
+
+ROW 1: IDLE (4 frames)
+- Gentle swaying/scanning
+- Barrel rotating slowly
+- Happy blinking eyes
+- FPS: 6-8
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 0, 32, 32)
+- Frame 2: (32, 0, 32, 32)
+- Frame 3: (64, 0, 32, 32)
+- Frame 4: (96, 0, 32, 32)
+
+ROW 2: AIMING (4 frames)
+- Tracking player
+- Barrel pointing at target
+- Focused expression
+- Wind-up anticipation
+- FPS: 10
+- Loop: No (hold on last frame)
+
+Frame Coordinates:
+- Frame 1: (0, 32, 32, 32)
+- Frame 2: (32, 32, 32, 32)
+- Frame 3: (64, 32, 32, 32)
+- Frame 4: (96, 32, 32, 32)
+
+ROW 3: FIRING (6 frames)
+- Recoil animation
+- Muzzle flash
+- Barrel kicks back
+- Excited expression
+- Projectile launches
+- FPS: 12-15
+- Loop: No (return to Idle)
+
+Frame Coordinates:
+- Frame 1: (0, 64, 32, 32)
+- Frame 2: (32, 64, 32, 32)
+- Frame 3: (64, 64, 32, 32)
+- Frame 4: (96, 64, 32, 32)
+- Frame 5: (128, 64, 32, 32)
+- Frame 6: (160, 64, 32, 32)
+
+ROW 4: DAMAGED (3 frames)
+- Hit reaction
+- Sparks and smoke
+- Sad/hurt expression
+- Wobbling
+- FPS: 15
+- Loop: No
+
+Frame Coordinates:
+- Frame 1: (0, 96, 32, 32)
+- Frame 2: (32, 96, 32, 32)
+- Frame 3: (64, 96, 32, 32)
+
+BEHAVIOR:
+- Stationary (can be placed on walls/ceiling)
+- Detects player in line of sight
+- Aims at player position
+- Fires projectiles at intervals
+- Cannot be jumped on (spiky top)
+- Must be shot to defeat
+
+STATS (Suggested):
+- Health: 3 hits
+- Fire Rate: Every 2-3 seconds
+- Projectile: Energy Ball (see Projectiles section)
+- Detection Range: 8-10 tiles (line of sight)
+- Rotation Speed: Medium
+
+
+---
+
+ENEMY 3: ANTIGRAV ORB
+=====================
+
+File: antigrav_orb.png
+Location: assets/sprites/enemies/antigrav_orb.png
+Frame Size: 32x32 pixels
+Total Frames: 21
+
+Description:
+Floating orb creature with antigravity powers. Purple/pink with cyan glow.
+Smug expression. Teases the gravity flip mechanic before player unlocks it.
+Defies gravity naturally, showing player what's possible.
+
+ANIMATIONS:
+
+ROW 1: IDLE/FLOAT (6 frames)
+- Gentle floating up and down
+- Rotating slowly
+- Glowing antigravity aura
+- Smug expression
+- Gravity symbols around it
+- FPS: 8-10
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 0, 32, 32)
+- Frame 2: (32, 0, 32, 32)
+- Frame 3: (64, 0, 32, 32)
+- Frame 4: (96, 0, 32, 32)
+- Frame 5: (128, 0, 32, 32)
+- Frame 6: (160, 0, 32, 32)
+
+ROW 2: GRAVITY FLIP (6 frames)
+- Flipping upside down
+- Antigravity energy burst
+- Spinning 180 degrees
+- Showing off power
+- Smug/playful expression
+- FPS: 12
+- Loop: No (can reverse for flip back)
+
+Frame Coordinates:
+- Frame 1: (0, 32, 32, 32)
+- Frame 2: (32, 32, 32, 32)
+- Frame 3: (64, 32, 32, 32)
+- Frame 4: (96, 32, 32, 32)
+- Frame 5: (128, 32, 32, 32)
+- Frame 6: (160, 32, 32, 32)
+
+ROW 3: PATROL (6 frames)
+- Moving in wavy pattern
+- Defying gravity naturally
+- Antigravity particles trailing
+- Confident expression
+- Smooth floating
+- FPS: 10
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 64, 32, 32)
+- Frame 2: (32, 64, 32, 32)
+- Frame 3: (64, 64, 32, 32)
+- Frame 4: (96, 64, 32, 32)
+- Frame 5: (128, 64, 32, 32)
+- Frame 6: (160, 64, 32, 32)
+
+ROW 4: DAMAGED (3 frames)
+- Hit reaction
+- Antigravity field flickering
+- Surprised/hurt expression
+- Wobbling, losing control
+- FPS: 15
+- Loop: No
+
+Frame Coordinates:
+- Frame 1: (0, 96, 32, 32)
+- Frame 2: (32, 96, 32, 32)
+- Frame 3: (64, 96, 32, 32)
+
+BEHAVIOR:
+- Floats freely, ignoring gravity
+- Patrols in wavy/circular patterns
+- Can flip gravity orientation
+- Moves to ceiling and walls naturally
+- Deals contact damage
+- Shows player preview of gravity flip ability
+
+STATS (Suggested):
+- Health: 2 hits
+- Speed: Slow-Medium
+- Damage: 1 (contact)
+- Special: Immune to gravity
+- Drops: Antigravity resource (higher chance)
+
+DESIGN PURPOSE:
+This enemy serves as a "preview" of the gravity flip mechanic.
+Players see it defying gravity before they unlock the ability,
+creating anticipation and teaching the mechanic visually.
+
+
+---
+
+PROJECTILES
+===========
+
+File: projectiles.png
+Location: assets/sprites/enemies/projectiles.png
+
+Multiple projectile types for enemy attacks:
+
+PROJECTILE 1: ENERGY BALL (4 frames)
+Frame Size: 16x16 pixels
+- Spinning energy projectile
+- Pink/purple glowing orb
+- Rotation animation
+- Trailing particles
+- FPS: 12
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 0, 16, 16)
+- Frame 2: (16, 0, 16, 16)
+- Frame 3: (32, 0, 16, 16)
+- Frame 4: (48, 0, 16, 16)
+
+Usage: Turret's primary projectile
+Behavior: Travels in straight line, medium speed
+Damage: 1
+
+
+PROJECTILE 2: LASER BOLT (4 frames)
+Frame Size: 24x8 pixels
+- Elongated laser shot
+- Cyan/yellow colors
+- Pulsing animation
+- Motion blur effect
+- FPS: 15
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 16, 24, 8)
+- Frame 2: (24, 16, 24, 8)
+- Frame 3: (48, 16, 24, 8)
+- Frame 4: (72, 16, 24, 8)
+
+Usage: Fast projectile variant
+Behavior: Travels very fast, straight line
+Damage: 1
+
+
+PROJECTILE 3: PLASMA SHOT (4 frames)
+Frame Size: 16x16 pixels
+- Blob-like projectile
+- Green/yellow goo
+- Wobbling animation
+- Cheerful but dangerous
+- FPS: 10
+- Loop: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 24, 16, 16)
+- Frame 2: (16, 24, 16, 16)
+- Frame 3: (32, 24, 16, 16)
+- Frame 4: (48, 24, 16, 16)
+
+Usage: Slow, arcing projectile
+Behavior: Affected by gravity, bounces
+Damage: 1
+
+
+PROJECTILE IMPACT (6 frames)
+Frame Size: 32x32 pixels
+- Explosion/hit effect
+- Colorful burst
+- Star shapes and sparkles
+- Dissipating animation
+- FPS: 15
+- Loop: No
+
+Frame Coordinates:
+- Frame 1: (0, 40, 32, 32)
+- Frame 2: (32, 40, 32, 32)
+- Frame 3: (64, 40, 32, 32)
+- Frame 4: (96, 40, 32, 32)
+- Frame 5: (128, 40, 32, 32)
+- Frame 6: (160, 40, 32, 32)
+
+Usage: All projectile impacts
+Behavior: Plays on collision, then destroys
+
+
+---
+
+GODOT IMPLEMENTATION
+====================
+
+ENEMY SCENE STRUCTURE:
+
+For each enemy, create a scene with:
+
+CharacterBody2D (or Area2D for simpler enemies)
+├── AnimatedSprite2D (enemy sprite)
+├── CollisionShape2D (hitbox)
+├── Area2D (detection zone)
+│   └── CollisionShape2D (detection radius)
+├── Area2D (hurtbox - for player attacks)
+│   └── CollisionShape2D
+└── (Optional) Particles2D (effects)
+
+FLYER DRONE EXAMPLE:
+
+```gdscript
+extends CharacterBody2D
+
+@export var speed = 100.0
+@export var detection_range = 200.0
+@export var health = 2
+
+var player: Node2D = null
+var state = "idle"  # idle, alert, chase
+
+func _ready():
+    $AnimatedSprite2D.play("idle")
+
+func _physics_process(delta):
+    match state:
+        "idle":
+            patrol()
+        "chase":
+            chase_player()
+    
+    move_and_slide()
+
+func patrol():
+    # Simple back-and-forth patrol
+    velocity.x = speed if not $RayCast2D.is_colliding() else -speed
+    $AnimatedSprite2D.play("flying")
+
+func chase_player():
+    if player:
+        var direction = (player.global_position - global_position).normalized()
+        velocity = direction * speed * 1.5
+        $AnimatedSprite2D.play("flying")
+
+func _on_detection_area_body_entered(body):
+    if body.is_in_group("player"):
+        player = body
+        state = "chase"
+        $AnimatedSprite2D.play("alert")
+        await $AnimatedSprite2D.animation_finished
+        state = "chase"
+
+func take_damage(amount):
+    health -= amount
+    $AnimatedSprite2D.play("damaged")
+    if health <= 0:
+        die()
+
+func die():
+    # Drop resources, play death effect
+    queue_free()
+```
+
+TURRET EXAMPLE:
+
+```gdscript
+extends StaticBody2D
+
+@export var fire_rate = 2.0
+@export var projectile_scene: PackedScene
+@export var health = 3
+
+var player: Node2D = null
+var can_fire = true
+
+func _ready():
+    $AnimatedSprite2D.play("idle")
+    $FireTimer.wait_time = fire_rate
+
+func _process(delta):
+    if player and can_fire:
+        aim_at_player()
+
+func aim_at_player():
+    $AnimatedSprite2D.play("aiming")
+    # Rotate barrel toward player
+    var angle = global_position.angle_to_point(player.global_position)
+    rotation = angle
+
+func fire():
+    $AnimatedSprite2D.play("firing")
+    var projectile = projectile_scene.instantiate()
+    get_parent().add_child(projectile)
+    projectile.global_position = $Barrel.global_position
+    projectile.direction = Vector2.RIGHT.rotated(rotation)
+    can_fire = false
+    $FireTimer.start()
+
+func _on_fire_timer_timeout():
+    can_fire = true
+```
+
+PROJECTILE EXAMPLE:
+
+```gdscript
+extends Area2D
+
+@export var speed = 200.0
+var direction = Vector2.RIGHT
+
+func _ready():
+    $AnimatedSprite2D.play("energy_ball")
+
+func _physics_process(delta):
+    position += direction * speed * delta
+
+func _on_body_entered(body):
+    if body.is_in_group("player"):
+        body.take_damage(1)
+    
+    # Play impact animation
+    $AnimatedSprite2D.play("impact")
+    await $AnimatedSprite2D.animation_finished
+    queue_free()
+```
+
+
+---
+
+ENEMY PLACEMENT TIPS
+=====================
+
+FLYER DRONE:
+- Place in open areas for patrol
+- Good for horizontal corridors
+- Can chase player across gaps
+- Introduce early (tutorial area)
+
+TURRET:
+- Place on walls, floors, or ceilings
+- Create firing lanes player must navigate
+- Good for teaching timing and dodging
+- Can guard important items
+
+ANTIGRAV ORB:
+- Introduce before gravity flip unlock
+- Place on ceilings to show gravity defiance
+- Use in areas player can't reach yet
+- Creates "I want that power!" moment
+- After player unlocks gravity flip, becomes easier
+
+
+---
+
+DIFFICULTY PROGRESSION
+======================
+
+Early Game:
+- 1-2 Flyer Drones
+- Simple patrol patterns
+- No turrets yet
+
+Mid Game:
+- Multiple Flyer Drones
+- Introduce Turrets
+- First Antigrav Orb sighting
+
+Late Game (Post Gravity Flip):
+- All enemy types
+- Complex combinations
+- Antigrav Orbs become regular enemies
+
+
+---
+
+RESOURCE DROPS
+==============
+
+All enemies can drop resources on defeat:
+
+Flyer Drone:
+- 1-2 resource orbs (50% chance)
+
+Turret:
+- 2-3 resource orbs (70% chance)
+
+Antigrav Orb:
+- 3-5 resource orbs (90% chance)
+- Higher value drops (teases gravity abilities)
+
+
+---
+
+COLOR PALETTE
+=============
+
+Flyer Drone:
+- Body Cyan: #00D9FF
+- Body Yellow: #FFD700
+- Screen: #A8D8EA
+- Propeller: #B4B4B4
+
+Turret:
+- Body Pink: #FF6B9D
+- Body Purple: #9B59B6
+- Barrel: #6B46C1
+- Muzzle Flash: #FFD700
+
+Antigrav Orb:
+- Core Purple: #9B59B6
+- Core Pink: #FF69B4
+- Glow Cyan: #00D9FF
+- Particles: #B4E7CE
+
+Projectiles:
+- Energy Ball: #FF69B4 / #9B59B6
+- Laser Bolt: #00D9FF / #FFD700
+- Plasma Shot: #7EC850 / #FFD700
+
+
+---
+
+NEXT STEPS
+==========
+
+1. Import enemy sprites into Godot
+2. Create enemy scenes with AI scripts
+3. Create projectile scenes
+4. Test enemy behaviors
+5. Balance health/damage values
+6. Add particle effects for polish
+7. Implement resource drops
+8. Create enemy spawn system
+
+
+---
+
+NOTES
+=====
+
+All enemies maintain the satirical happy aesthetic:
+- Overly cheerful despite being hostile
+- Bright, inviting colors
+- Friendly expressions
+- Creates humorous contrast with danger
+
+The Antigrav Orb is a key design element:
+- Teases gravity flip mechanic
+- Creates player desire for the ability
+- Becomes more manageable after unlock
+- Teaches mechanic through observation

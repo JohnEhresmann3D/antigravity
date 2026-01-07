@@ -1,0 +1,56 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# Godot-specific
+*.translation
+export_presets.cfg
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System/tool-specific ignores
+.DS_Store
+*.swp
+*.swo
+*~
+.directory
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache/options
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Atlas AI artifacts (Gemini brain directory)
+.gemini/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Project analysis
+project_analysis.json
+
+# Temporary files
+*.tmp
+*.bak
+*.log

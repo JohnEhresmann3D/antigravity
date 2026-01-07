@@ -1,0 +1,389 @@
+SPACE STATION LEVEL ASSETS DOCUMENTATION
+=========================================
+
+Created: 2026-01-06
+Theme: Satirical Happy Space Station
+Style: 90s Saturday Morning Cartoon
+
+---
+
+ASSET OVERVIEW
+==============
+
+All assets follow the satirical happy aesthetic with:
+- Bright, vibrant colors (pastels and saturated hues)
+- Thick black outlines (2-3 pixels)
+- Exaggerated proportions
+- Cheerful but slightly "off" vibe
+- 90s cartoon style
+
+---
+
+BACKGROUNDS
+===========
+
+File: space_station_bg.png
+Location: assets/backgrounds/space_station_bg.png
+
+Description:
+Parallax background showing cheerful space station interior with:
+- Colorful cosmic space (pink, purple, cyan nebulas)
+- Happy stars and planets
+- Retro-futuristic station architecture
+- Pastel colored metal panels
+- Satirical signage and posters
+
+Usage:
+- Import as parallax background layers
+- Separate into multiple layers for depth
+- Scroll at different speeds for parallax effect
+
+Recommended Layers:
+1. Far background: Deep space (slowest scroll)
+2. Mid background: Station exterior through windows (medium scroll)
+3. Near background: Interior walls and details (faster scroll)
+
+
+PLATFORM TILESET
+================
+
+File: platform_tileset.png
+Location: assets/sprites/tilesets/platform_tileset.png
+
+Tile Size: 32x32 pixels
+Grid Layout: Multiple rows organized by type
+
+TILE TYPES:
+
+Row 1-2: Solid Platform Tiles
+- Various pastel colors (mint, blue, pink, yellow)
+- Metal panels with rivets and bolts
+- Some with happy face decals
+- Some with warning stripes
+
+Row 3: Platform Edges and Corners
+- Left edge, right edge pieces
+- Corner pieces (all 4 corners)
+- Single platform tiles
+- Cyan/pink color scheme
+
+Row 4: Special Platforms
+- Floating platform (small, rounded)
+- Moving platform with track/arrows
+- Breakable platform (cracked, question marks)
+- Bouncy platform (spring-loaded)
+
+Godot Implementation:
+- Use TileMap node
+- Set tile size to 32x32
+- Create collision shapes for solid tiles
+- Use autotiling for seamless connections
+
+
+STATIC ENVIRONMENT OBJECTS
+===========================
+
+File: objects_static.png
+Location: assets/sprites/environment/objects_static.png
+
+INTERACTIVE OBJECTS:
+- Energy orb (glowing cyan/yellow collectible)
+- Breakable boxes (happy faces, various colors)
+- Computer terminals (retro screens)
+- Buttons and switches (oversized, inviting)
+- Checkpoint beacon (star on pole)
+
+DECORATIVE OBJECTS:
+- Furniture (chairs, tables, retro-futuristic)
+- Warning signs ("MANDATORY FUN AHEAD!", "SMILE! YOU'RE ON CAMERA!")
+- Vending machines ("GRAVITY PILLS", "OXYGEN SNACKS")
+- Propaganda posters ("BE HAPPY!")
+- Floating robots (cute helpers)
+- Colorful pipes and vents
+- Control panels
+
+Usage:
+- Place as Sprite2D nodes
+- Add Area2D for interactive objects
+- Use for world building and atmosphere
+
+
+ANIMATED FLOWERS
+================
+
+File: flowers_animated.png
+Location: assets/sprites/environment/flowers_animated.png
+
+Frame Size: 32x32 pixels per frame
+Total Frames: 18 (3 flower types × 6 frames each)
+
+ROW 1: Purple Flower (6 frames)
+Animation: Swaying, petals opening/closing
+Colors: Purple petals, green pot
+FPS: 8-10
+Loop: Yes
+
+ROW 2: Pink Flower (6 frames)
+Animation: Bobbing up and down
+Colors: Pink petals, blue pot
+FPS: 8-10
+Loop: Yes
+
+ROW 3: Yellow Flower (6 frames)
+Animation: Spinning/rotating petals
+Colors: Yellow petals, purple pot
+FPS: 8-10
+Loop: Yes
+
+Godot Implementation:
+- Use AnimatedSprite2D
+- Create 3 separate animations (purple, pink, yellow)
+- Set to loop
+- Place as decorative background elements
+
+Frame Coordinates:
+Purple Flower:
+- Frame 1: (0, 0, 32, 32)
+- Frame 2: (32, 0, 32, 32)
+- Frame 3: (64, 0, 32, 32)
+- Frame 4: (96, 0, 32, 32)
+- Frame 5: (128, 0, 32, 32)
+- Frame 6: (160, 0, 32, 32)
+
+Pink Flower:
+- Frame 1: (0, 32, 32, 32)
+- Frame 2: (32, 32, 32, 32)
+- Frame 3: (64, 32, 32, 32)
+- Frame 4: (96, 32, 32, 32)
+- Frame 5: (128, 32, 32, 32)
+- Frame 6: (160, 32, 32, 32)
+
+Yellow Flower:
+- Frame 1: (0, 64, 32, 32)
+- Frame 2: (32, 64, 32, 32)
+- Frame 3: (64, 64, 32, 32)
+- Frame 4: (96, 64, 32, 32)
+- Frame 5: (128, 64, 32, 32)
+- Frame 6: (160, 64, 32, 32)
+
+
+ANIMATED HAZARDS
+================
+
+File: hazards_animated.png
+Location: assets/sprites/environment/hazards_animated.png
+
+ROW 1: Laser Barrier (4 frames)
+Frame Size: 64x32 pixels
+Animation: Flickering pink/cyan laser beams
+FPS: 10-12
+Loop: Yes
+Damage: Yes (collision with player)
+
+Frame Coordinates:
+- Frame 1: (0, 0, 64, 32)
+- Frame 2: (64, 0, 64, 32)
+- Frame 3: (128, 0, 64, 32)
+- Frame 4: (192, 0, 64, 32)
+
+ROW 2: Spinning Saw Blade (8 frames)
+Frame Size: 32x32 pixels
+Animation: Full 360° rotation with smiley face
+FPS: 12-15
+Loop: Yes
+Damage: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 32, 32, 32)
+- Frame 2: (32, 32, 32, 32)
+- Frame 3: (64, 32, 32, 32)
+- Frame 4: (96, 32, 32, 32)
+- Frame 5: (128, 32, 32, 32)
+- Frame 6: (160, 32, 32, 32)
+- Frame 7: (192, 32, 32, 32)
+- Frame 8: (224, 32, 32, 32)
+
+ROW 3: Electric Barrier (6 frames)
+Frame Size: 64x32 pixels
+Animation: Crackling colorful electricity
+FPS: 10-12
+Loop: Yes
+Damage: Yes
+
+Frame Coordinates:
+- Frame 1: (0, 64, 64, 32)
+- Frame 2: (64, 64, 64, 32)
+- Frame 3: (128, 64, 64, 32)
+- Frame 4: (192, 64, 64, 32)
+- Frame 5: (256, 64, 64, 32)
+- Frame 6: (320, 64, 64, 32)
+
+ROW 4: Steam Vent (6 frames)
+Frame Size: 32x48 pixels
+Animation: Puffing happy cloud faces
+FPS: 8-10
+Loop: Yes
+Damage: Optional (can be harmless or push player)
+
+Frame Coordinates:
+- Frame 1: (0, 96, 32, 48)
+- Frame 2: (32, 96, 32, 48)
+- Frame 3: (64, 96, 32, 48)
+- Frame 4: (96, 96, 32, 48)
+- Frame 5: (128, 96, 32, 48)
+- Frame 6: (160, 96, 32, 48)
+
+Godot Implementation for Hazards:
+- Use AnimatedSprite2D for visuals
+- Add Area2D for damage detection
+- Connect area_entered signal to damage player
+- Optional: Add particle effects for extra flair
+
+
+GODOT PROJECT STRUCTURE
+========================
+
+Recommended scene organization:
+
+res://
+├── assets/
+│   ├── backgrounds/
+│   │   └── space_station_bg.png
+│   └── sprites/
+│       ├── characters/
+│       │   ├── cosmo_spritesheet.png
+│       │   └── cosmo_spritesheet_guide.txt
+│       ├── environment/
+│       │   ├── objects_static.png
+│       │   ├── flowers_animated.png
+│       │   └── hazards_animated.png
+│       └── tilesets/
+│           └── platform_tileset.png
+├── scenes/
+│   ├── levels/
+│   │   └── space_station_01.tscn
+│   ├── environment/
+│   │   ├── flower.tscn (AnimatedSprite2D)
+│   │   └── hazards/
+│   │       ├── laser_barrier.tscn
+│   │       ├── saw_blade.tscn
+│   │       ├── electric_barrier.tscn
+│   │       └── steam_vent.tscn
+│   └── player/
+│       └── cosmo.tscn
+
+
+LEVEL DESIGN TIPS
+=================
+
+Color Coordination:
+- Use pastel platforms (mint, pink, blue) for main paths
+- Yellow/orange platforms for special areas
+- Warning stripe platforms near hazards
+
+Atmosphere:
+- Place flowers as decorative elements
+- Add propaganda posters for satirical humor
+- Use vending machines and signs for world building
+- Scatter furniture for lived-in feel
+
+Hazard Placement:
+- Laser barriers for horizontal obstacles
+- Saw blades for moving hazards
+- Electric barriers for vertical obstacles
+- Steam vents for timing challenges or platforming aids
+
+Parallax Background:
+- Layer 1 (far): 0.2x scroll speed
+- Layer 2 (mid): 0.5x scroll speed
+- Layer 3 (near): 0.8x scroll speed
+- Foreground platforms: 1.0x scroll speed
+
+
+COLOR PALETTE REFERENCE
+========================
+
+Platforms:
+- Mint Green: #B4E7CE
+- Baby Blue: #A8D8EA
+- Soft Pink: #FFB6C1
+- Pastel Yellow: #FFF9A6
+
+Hazards:
+- Laser Pink: #FF69B4
+- Laser Cyan: #00D9FF
+- Warning Yellow: #FFD700
+- Warning Black: #000000
+
+Flowers:
+- Purple Petals: #9B59B6
+- Pink Petals: #FF6B9D
+- Yellow Petals: #FFD700
+- Green Pot: #7EC850
+- Blue Pot: #00D9FF
+- Purple Pot: #9B59B6
+
+Background:
+- Space Purple: #6B46C1
+- Nebula Pink: #FF69B4
+- Nebula Cyan: #00D9FF
+- Star Yellow: #FFD700
+
+
+IMPORT SETTINGS (GODOT)
+========================
+
+All Sprites:
+- Compress: Lossless
+- Filter: Nearest (for pixel art look)
+- Mipmaps: Disabled
+- Repeat: Disabled
+
+Background:
+- Compress: Lossless
+- Filter: Linear (for smooth parallax)
+- Mipmaps: Disabled
+- Repeat: Enabled (for seamless tiling)
+
+
+PERFORMANCE NOTES
+=================
+
+Mobile Optimization:
+- Limit number of animated objects on screen
+- Use object pooling for collectibles
+- Batch similar sprites together
+- Consider reducing animation FPS on lower-end devices
+
+Recommended Limits (on screen at once):
+- Animated flowers: 5-10
+- Animated hazards: 3-5
+- Static objects: 20-30
+- Platform tiles: Unlimited (TileMap is efficient)
+
+
+SATIRICAL ELEMENTS
+==================
+
+The "happy" aesthetic is intentionally over-the-top:
+- Smiley faces on dangerous hazards (saw blades)
+- Propaganda-style "BE HAPPY!" posters
+- Mandatory fun signs
+- Overly cheerful warning messages
+- Bright colors in dangerous situations
+
+This creates a satirical contrast between the cheerful visuals
+and the actual platforming challenges, fitting the game's theme.
+
+
+NEXT STEPS
+==========
+
+1. Import all assets into Godot project
+2. Create TileMap for platforms
+3. Set up parallax background layers
+4. Create hazard scenes with collision
+5. Place decorative elements (flowers, objects)
+6. Test level layout and difficulty
+7. Add particle effects for polish
+8. Implement gravity mechanics with these assets

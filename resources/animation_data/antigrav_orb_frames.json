@@ -1,0 +1,182 @@
+{
+    "sprite_sheet": "res://assets/sprites/enemies/antigrav_orb.png",
+    "sheet_size": [
+        1024,
+        1024
+    ],
+    "frame_size": [
+        32,
+        32
+    ],
+    "enemy_name": "Antigrav Orb",
+    "animations": {
+        "idle": {
+            "description": "Gentle floating, glowing antigravity aura",
+            "row": 1,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 128,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 160,
+                    "y": 0,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 8,
+            "loop": true
+        },
+        "gravity_flip": {
+            "description": "Flipping upside down, antigravity energy burst",
+            "row": 2,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 128,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 160,
+                    "y": 32,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 12,
+            "loop": false
+        },
+        "patrol": {
+            "description": "Moving in wavy pattern, defying gravity",
+            "row": 3,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 128,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 160,
+                    "y": 64,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 10,
+            "loop": true
+        },
+        "damaged": {
+            "description": "Hit reaction, antigravity field flickering",
+            "row": 4,
+            "frame_count": 3,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 96,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 15,
+            "loop": false
+        }
+    },
+    "stats": {
+        "health": 2,
+        "speed": 80,
+        "damage": 1,
+        "ignores_gravity": true
+    }
+}

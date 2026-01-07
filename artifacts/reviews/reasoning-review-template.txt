@@ -1,0 +1,149 @@
+REASONING REVIEW & VERDICT
+==========================
+
+Review ID: [REVIEW-YYYY-MM-DD-NNN]
+Created: [Date]
+Reviewer: [Atlas PM Role]
+Related Execution: [ENG-ID]
+Related Plan: [PLAN-ID]
+
+---
+
+EXECUTION SUMMARY
+-----------------
+
+[Brief summary of what the engineer reported]
+
+Task: 
+Changes Made: 
+Verification Results: 
+
+
+EVIDENCE REVIEW
+---------------
+
+Was Evidence Sufficient?
+[Yes/No - Did the engineer provide adequate evidence for their changes?]
+
+Details:
+- 
+- 
+
+
+ALIGNMENT CHECK
+---------------
+
+Does execution match the task plan?
+[Yes/No/Partial]
+
+Details:
+- 
+- 
+
+Were constraints respected?
+[Yes/No]
+
+Details:
+- 
+- 
+
+
+ACCEPTANCE CRITERIA
+-------------------
+
+[Check each criterion from the task plan]
+
+Criterion 1: [description]
+  Status: [Met/Not Met/Partial]
+  Evidence: 
+
+Criterion 2: [description]
+  Status: [Met/Not Met/Partial]
+  Evidence: 
+
+
+VERIFICATION REVIEW
+-------------------
+
+Were verification steps completed?
+[Yes/No/Partial]
+
+Details:
+- 
+- 
+
+Are verification results acceptable?
+[Yes/No]
+
+Details:
+- 
+- 
+
+
+RISK ASSESSMENT
+---------------
+
+High-Risk Findings:
+- 
+- 
+
+Medium-Risk Findings:
+- 
+- 
+
+Mitigation Required:
+[Yes/No - Must risks be addressed before proceeding?]
+
+Details:
+- 
+- 
+
+
+ASSUMPTIONS REVIEW
+------------------
+
+Were assumptions made?
+[Yes/No]
+
+If Yes, are they acceptable?
+[Yes/No]
+
+Details:
+- 
+- 
+
+
+VERDICT
+-------
+
+Decision: [PROCEED | BLOCKED | NEEDS CLARIFICATION]
+
+Rationale:
+[Explain the decision based on evidence, alignment, criteria, and risks]
+
+
+If BLOCKED:
+  Blocking Issues:
+    1. 
+    2. 
+  Required Actions:
+    1. 
+    2. 
+
+If NEEDS CLARIFICATION:
+  Questions:
+    1. 
+    2. 
+  Information Needed:
+    1. 
+    2. 
+
+If PROCEED:
+  Next Task: [Task ID from plan, or "Complete"]
+  Notes: 
+
+
+NOTES
+-----
+
+[Additional observations or recommendations]

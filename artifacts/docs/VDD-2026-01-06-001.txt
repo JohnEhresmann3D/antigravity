@@ -1,0 +1,447 @@
+ANTIGRAVITY - VISUAL DESIGN DOCUMENT
+=====================================
+
+Document ID: VDD-2026-01-06-001
+Created: 2026-01-06
+Status: Active
+Related GDD: GDD-2026-01-06-001
+
+---
+
+VISUAL DESIGN OVERVIEW
+======================
+
+Antigravity's visual design blends two distinct aesthetics:
+- Hollow Knight: Atmospheric, detailed, hand-drawn, moody
+- Super Mario Bros: Readable, colorful, clear silhouettes, iconic
+
+The game uses dynamic visual tone that shifts between zones, creating
+variety and emotional contrast throughout the experience.
+
+
+CORE VISUAL PRINCIPLES
+=======================
+
+1. MOBILE-FIRST READABILITY
+   - Clear silhouettes that read on small screens
+   - High contrast between player, enemies, and environment
+   - Distinct visual language for interactive elements
+
+2. ATMOSPHERIC DEPTH
+   - Layered backgrounds (parallax)
+   - Lighting and shadow for mood
+   - Environmental storytelling through visuals
+
+3. TONAL VARIETY
+   - Bright zones vs. dark zones
+   - Satirical upbeat vs. genuinely moody
+   - Visual contrast creates memorable moments
+
+4. MODULAR DESIGN
+   - Reusable visual components
+   - Consistent art style across zones
+   - Tileable assets for efficient level building
+
+
+VISUAL TONE BY ZONE TYPE
+=========================
+
+UPBEAT ZONES (Satirical)
+------------------------
+
+Mood: Bright, colorful, almost too cheerful (with an edge)
+Inspiration: Super Mario Bros, but with satirical undertones
+
+Visual Characteristics:
+- Vibrant, saturated colors
+- Clear blue skies or bright backgrounds
+- Geometric, clean shapes
+- Smooth, rounded forms
+- High contrast lighting
+
+Color Palette Direction:
+- Primary: Bright blues, greens, yellows
+- Accents: Pinks, oranges, purples
+- Shadows: Soft, not harsh
+- Overall: Cheerful but slightly "off" (satirical edge)
+
+Environmental Elements:
+- Floating platforms
+- Bright collectibles
+- Friendly-looking (but not necessarily friendly) enemies
+- Clear visual hierarchy
+
+Satirical Edge:
+- Slightly exaggerated proportions
+- Unexpected color combinations
+- Environmental details that hint at darker themes
+- Contrast with gameplay difficulty
+
+
+DARK/MOODY ZONES
+-----------------
+
+Mood: Atmospheric, mysterious, slightly ominous
+Inspiration: Hollow Knight
+
+Visual Characteristics:
+- Desaturated or limited color palette
+- Deep shadows and dramatic lighting
+- Organic, hand-drawn feel
+- Intricate environmental details
+- Atmospheric effects (fog, particles, etc.)
+
+Color Palette Direction:
+- Primary: Deep blues, purples, grays
+- Accents: Glowing elements (cyan, white, pale yellow)
+- Shadows: Deep, rich blacks
+- Overall: Moody but not oppressive
+
+Environmental Elements:
+- Cavernous spaces
+- Mysterious architecture
+- Glowing crystals or energy sources
+- Detailed background elements
+- Atmospheric lighting
+
+
+TRANSITION ZONES
+-----------------
+
+Purpose: Bridge between upbeat and dark zones
+Visual: Gradual shift in tone, color, and lighting
+Creates: Sense of journey and progression
+
+
+CHARACTER DESIGN
+================
+
+PLAYER CHARACTER
+----------------
+
+Design Requirements:
+- Clear silhouette (readable at small sizes)
+- Distinct from environment
+- Animations must convey gravity state clearly
+- Works in both bright and dark zones
+
+Visual Considerations:
+- Contrasting colors (stands out in any zone)
+- Glowing elements or highlights for visibility
+- Expressive animations
+- Clear visual feedback for abilities
+
+Design Direction: TBD
+- Needs concept sketches
+- Should reflect "antigravity" theme
+- Mobile-friendly proportions
+
+
+ENEMIES
+-------
+
+Design Requirements:
+- Distinct silhouettes per enemy type
+- Clear visual language for behavior
+- Readable at distance
+- Fits both zone types
+
+Visual Hierarchy:
+- Common enemies: Simple, clear designs
+- Elite enemies: More detailed, larger
+- Bosses: Highly detailed, screen-filling presence
+
+
+BOSSES
+------
+
+Design Requirements:
+- Impressive visual presence
+- Clear attack telegraphing
+- Memorable design
+- Fits zone tone (upbeat boss vs. dark boss)
+
+Visual Considerations:
+- Large enough to be impressive
+- Clear weak points or phases
+- Dramatic lighting and effects
+- Unique silhouette
+
+
+UI/UX DESIGN
+============
+
+MOBILE UI PRINCIPLES
+--------------------
+
+1. Touch-Friendly
+   - Large touch targets (minimum 44x44 points)
+   - Clear visual feedback on touch
+   - No small, precise interactions
+
+2. Minimal Screen Clutter
+   - HUD elements in corners
+   - Transparent/semi-transparent backgrounds
+   - Auto-hide when not needed
+
+3. Clear Information Hierarchy
+   - Critical info (health) most prominent
+   - Secondary info (resources) visible but not distracting
+   - Contextual info appears when relevant
+
+
+HUD ELEMENTS
+------------
+
+Required Elements:
+- Health indicator
+- Resource counter
+- Active ability indicator
+- Temporary powerup timer (when active)
+
+Visual Style:
+- Matches overall art direction
+- High contrast for readability
+- Animated feedback for changes
+- Minimal but informative
+
+
+MENUS
+-----
+
+World Selection:
+- Visual preview of each world
+- Clear indication of completion/progress
+- Touch-friendly layout
+
+Pause Menu:
+- Simple, clear options
+- Resume, restart, quit
+- Settings access (if needed)
+
+
+TECHNICAL ART REQUIREMENTS
+===========================
+
+RESOLUTION & ASPECT RATIO
+--------------------------
+
+Mobile:
+- Design for 16:9 and 18:9 aspect ratios
+- Safe area for UI elements
+- Scalable assets (vector where possible)
+
+PC:
+- Support common resolutions (1920x1080, 2560x1440, etc.)
+- Maintain pixel-perfect rendering or smooth scaling
+
+
+PERFORMANCE TARGETS
+-------------------
+
+Mobile:
+- 60 FPS on mid-range devices
+- Efficient sprite batching
+- Optimized particle effects
+- Texture atlasing
+
+Asset Optimization:
+- Compressed textures
+- Appropriate resolution for mobile
+- Efficient animation systems
+
+
+ANIMATION REQUIREMENTS
+----------------------
+
+Player:
+- Idle, walk, run, jump, fall
+- Gravity flip transition
+- Ability activation
+- Damage/death
+- Landing
+
+Enemies:
+- Idle, patrol, attack
+- Damage, death
+- Unique animations per type
+
+Environmental:
+- Animated hazards
+- Collectible idle animations
+- Background elements (subtle movement)
+
+
+VISUAL EFFECTS
+==============
+
+GRAVITY EFFECTS
+---------------
+
+Visual Feedback for Gravity States:
+- Particle trails showing gravity direction
+- Screen effects during gravity flip
+- Environmental cues (floating debris in zero-G)
+- Player visual changes (hair, cloth physics)
+
+Zero-Gravity Zones:
+- Floating particles
+- Glowing boundaries
+- Distinct visual identity
+- Clear entry/exit points
+
+
+LIGHTING
+--------
+
+Bright Zones:
+- Bright, even lighting
+- Soft shadows
+- Colorful ambient light
+
+Dark Zones:
+- Dramatic, directional lighting
+- Deep shadows
+- Glowing elements for navigation
+- Atmospheric lighting effects
+
+
+PARTICLES
+---------
+
+Uses:
+- Ability activation
+- Collectible pickup
+- Enemy defeat
+- Environmental atmosphere
+- Gravity state changes
+
+Optimization:
+- Limited particle count for mobile
+- Efficient particle systems
+- Scalable based on device performance
+
+
+REFERENCE MATERIALS
+===================
+
+PRIMARY INSPIRATIONS
+--------------------
+
+Hollow Knight:
+- Hand-drawn aesthetic
+- Atmospheric lighting
+- Detailed environments
+- Moody color palettes
+- Expressive character animation
+
+Super Mario Bros (Modern):
+- Clear, readable design
+- Vibrant colors
+- Iconic silhouettes
+- Smooth, polished animation
+- Joyful aesthetic
+
+
+MOOD BOARD
+----------
+
+(To be created - collect reference images for:)
+- Hollow Knight screenshots (dark zones)
+- Super Mario screenshots (bright zones)
+- Color palette examples
+- Character design references
+- UI/UX examples from mobile platformers
+- Gravity-based game visuals
+
+
+COLOR PALETTE DEVELOPMENT
+==========================
+
+BRIGHT ZONE PALETTE (Draft)
+----------------------------
+
+Primary Colors:
+- Sky Blue: #87CEEB (backgrounds)
+- Grass Green: #7EC850 (platforms)
+- Sunshine Yellow: #FFD700 (collectibles)
+
+Accent Colors:
+- Coral Pink: #FF6B9D (enemies, hazards)
+- Bright Orange: #FF8C42 (interactive elements)
+- Purple: #9B59B6 (special elements)
+
+Neutrals:
+- White: #FFFFFF (highlights)
+- Light Gray: #E0E0E0 (platforms)
+- Dark Gray: #4A4A4A (outlines, shadows)
+
+
+DARK ZONE PALETTE (Draft)
+--------------------------
+
+Primary Colors:
+- Deep Blue: #1A1A2E (backgrounds)
+- Dark Purple: #16213E (mid-ground)
+- Charcoal: #0F3460 (platforms)
+
+Accent Colors:
+- Cyan Glow: #00D9FF (energy, collectibles)
+- Pale Yellow: #F1F6F9 (highlights, important elements)
+- Deep Red: #8B0000 (hazards, danger)
+
+Neutrals:
+- Near Black: #0A0A0A (deep shadows)
+- Dark Gray: #2C2C2C (platforms)
+- Medium Gray: #5A5A5A (details)
+
+
+PROTOTYPE ART APPROACH
+======================
+
+For the prototype, we will use:
+
+1. PLACEHOLDER ART
+   - Simple geometric shapes
+   - Solid colors from palette
+   - Clear visual distinction between elements
+
+2. FOCUS AREAS
+   - Player character (basic sprite)
+   - Core platforms and hazards
+   - UI elements (functional, not polished)
+   - Basic enemy sprites
+
+3. DEFER TO POST-PROTOTYPE
+   - Detailed backgrounds
+   - Polished animations
+   - Particle effects (beyond basic)
+   - Environmental details
+
+
+NEXT STEPS
+==========
+
+1. Create mood board with reference images
+2. Design player character concept
+3. Define exact color palettes (hex codes)
+4. Create UI mockups for mobile
+5. Design first boss concept
+6. Create sprite size guidelines
+7. Define animation frame counts
+
+
+NOTES
+=====
+
+The visual design should support the modular gameplay approach:
+- Visual feedback for all gravity states
+- Clear communication of game mechanics
+- Scalable complexity (simple for prototype, detailed for full game)
+- Mobile-first but not mobile-limited
+
+Visual tone variety is a key differentiator:
+- Creates emotional journey through gameplay
+- Satirical upbeat zones add personality
+- Dark zones provide atmospheric contrast
+- Both styles should feel cohesive within the game's identity

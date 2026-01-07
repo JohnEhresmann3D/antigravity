@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://flyer_drone_001"]
+
+[ext_resource type="Script" path="res://scripts/enemies/flyer_drone.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ddm76exgci13b" path="res://assets/sprites/enemies/flyer_drone.png" id="2_sprite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(28, 28)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detection"]
+radius = 200.0
+
+[node name="FlyerDrone" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_detection")
+
+[node name="HurtBox" type="Area2D" parent="." groups=["hurtbox"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_body")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

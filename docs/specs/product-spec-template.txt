@@ -1,0 +1,111 @@
+PRODUCT SPECIFICATION
+=====================
+
+Spec ID: [SPEC-YYYY-MM-DD-NNN]
+Created: [Date]
+Author: [PM Role]
+Status: [Draft | Active | Superseded]
+
+---
+
+PROBLEM STATEMENT
+-----------------
+
+[Describe the problem being solved. What is broken, missing, or insufficient?]
+
+
+GOALS
+-----
+
+[What are we trying to achieve? Be specific and measurable.]
+
+1. 
+2. 
+3. 
+
+
+NON-GOALS
+---------
+
+[What is explicitly out of scope?]
+
+1. 
+2. 
+
+
+FUNCTIONAL REQUIREMENTS
+-----------------------
+
+[What must the solution do? Use "MUST", "SHOULD", "MAY" language.]
+
+MUST:
+- 
+- 
+
+SHOULD:
+- 
+- 
+
+MAY:
+- 
+- 
+
+
+CONSTRAINTS
+-----------
+
+[Technical, resource, or policy limitations]
+
+- 
+- 
+
+
+SUCCESS CRITERIA
+----------------
+
+[How do we know when this is complete? Observable or testable criteria.]
+
+1. 
+2. 
+
+
+ASSUMPTIONS
+-----------
+
+[What are we assuming to be true?]
+
+- 
+- 
+
+
+OPEN QUESTIONS
+--------------
+
+[What needs clarification before work can proceed?]
+
+1. 
+2. 
+
+
+DEPENDENCIES
+------------
+
+[What must exist or be completed first?]
+
+- 
+- 
+
+
+RISKS
+-----
+
+[What could go wrong? What are the failure modes?]
+
+- 
+- 
+
+
+NOTES
+-----
+
+[Additional context, references, or background]

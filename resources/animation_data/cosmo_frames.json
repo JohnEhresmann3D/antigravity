@@ -1,0 +1,296 @@
+{
+    "sprite_sheet": "res://assets/sprites/characters/cosmo_spritesheet.png",
+    "sheet_size": [
+        1024,
+        1024
+    ],
+    "frame_size": [
+        64,
+        64
+    ],
+    "character_name": "Cosmo",
+    "animations": {
+        "idle": {
+            "description": "Gentle breathing, slight helmet bob",
+            "row": 1,
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 0,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 0,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 192,
+                    "y": 0,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 8,
+            "loop": true
+        },
+        "walk": {
+            "description": "Bouncy walking cycle, arms swinging",
+            "row": 2,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 192,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 256,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 320,
+                    "y": 64,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 10,
+            "loop": true
+        },
+        "run": {
+            "description": "Faster movement, exaggerated arm swing",
+            "row": 3,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 192,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 256,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 320,
+                    "y": 128,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 12,
+            "loop": true
+        },
+        "jump": {
+            "description": "Wind-up crouch, launch, peak, descending",
+            "row": 4,
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 192,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 192,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 192,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 192,
+                    "y": 192,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 12,
+            "loop": false
+        },
+        "fall": {
+            "description": "Arms flailing, worried expression",
+            "row": 5,
+            "frame_count": 3,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 256,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 256,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 256,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 10,
+            "loop": true
+        },
+        "land": {
+            "description": "Impact squash, bounce, recovery",
+            "row": 6,
+            "frame_count": 3,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 320,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 320,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 320,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 15,
+            "loop": false
+        },
+        "gravity_flip": {
+            "description": "Spinning 180 degrees",
+            "row": 7,
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 192,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 256,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 320,
+                    "y": 384,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 12,
+            "loop": false
+        },
+        "damage": {
+            "description": "Hit reaction, flash, knockback",
+            "row": 8,
+            "frame_count": 3,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 448,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 64,
+                    "y": 448,
+                    "w": 64,
+                    "h": 64
+                },
+                {
+                    "x": 128,
+                    "y": 448,
+                    "w": 64,
+                    "h": 64
+                }
+            ],
+            "fps": 15,
+            "loop": false
+        }
+    }
+}

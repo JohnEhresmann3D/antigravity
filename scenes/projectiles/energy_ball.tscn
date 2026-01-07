@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://energy_ball_001"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/projectile.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_projectile"]
+radius = 8.0
+
+[node name="EnergyBall" type="Area2D" groups=["projectiles"]]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_projectile")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

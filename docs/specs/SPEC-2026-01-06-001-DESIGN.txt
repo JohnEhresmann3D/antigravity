@@ -1,0 +1,213 @@
+PRODUCT SPECIFICATION
+=====================
+
+Spec ID: SPEC-2026-01-06-001-DESIGN
+Created: 2026-01-06
+Author: Atlas PM Role
+Status: Active
+
+---
+
+PROBLEM STATEMENT
+-----------------
+
+The Antigravity Godot project is in its initial state with only basic project
+configuration. Before implementing gameplay mechanics or features, we need to
+establish the design foundation including:
+
+- Visual design direction and art style
+- Game concept and core mechanics
+- User interface/UX approach
+- Technical architecture patterns
+
+Without clear design direction, development risks building features that don't
+align with the intended vision or require significant rework later.
+
+
+GOALS
+-----
+
+1. Define the visual design direction and art style for the Antigravity game
+2. Establish core game concept and mechanics
+3. Identify key design constraints and technical requirements
+4. Create a design foundation that guides subsequent development
+
+
+NON-GOALS
+---------
+
+1. Full implementation of game features (that comes after design)
+2. Final asset creation (focus on direction, not production)
+3. Complete technical architecture (high-level patterns only)
+
+
+FUNCTIONAL REQUIREMENTS
+-----------------------
+
+MUST:
+- Define what "Antigravity" means in the context of this game
+- Establish visual style (2D/3D, art direction, color palette)
+- Identify core gameplay loop
+- Define target platform(s) and technical constraints
+
+SHOULD:
+- Create mood board or visual references
+- Outline key game mechanics
+- Identify UI/UX requirements
+- Consider accessibility requirements
+
+MAY:
+- Create concept sketches or mockups
+- Define audio/music direction
+- Outline narrative or theme
+
+
+CONSTRAINTS
+-----------
+
+- Godot 4.5 engine (Forward Plus renderer)
+- Project name: "Antigravity"
+- Current project is blank slate (no existing code to preserve)
+- Target platforms: Mobile (primary) with PC support
+- Scope: Prototype
+
+
+SUCCESS CRITERIA
+----------------
+
+1. Clear written description of game concept exists
+2. Visual design direction is documented with references
+3. Core mechanics are identified and described
+4. Technical constraints are documented
+5. Design artifacts are stored in appropriate locations per Atlas framework
+
+
+ASSUMPTIONS
+-----------
+
+- User has a vision for what "Antigravity" should be (CONFIRMED)
+- Design work will precede implementation
+- Atlas framework will be used for all subsequent work
+- Mobile-first design with PC as secondary platform
+
+
+DESIGN DIRECTION (ANSWERED)
+----------------------------
+
+GAME CONCEPT:
+- Genre: 2D Platformer meets Metroidvania
+- Core Inspiration: Super Mario Bros (platforming) + Hollow Knight (exploration, atmosphere)
+- Theme: Antigravity mechanics as core gameplay element
+
+VISUAL STYLE:
+- 2D game
+- Visual inspiration: Hollow Knight (atmospheric, detailed) + Super Mario (readable, colorful)
+- Art direction: Balance between Hollow Knight's moody aesthetic and Mario's clarity
+
+TARGET PLATFORMS:
+- Primary: Mobile
+- Secondary: PC
+- Scope: Prototype
+
+CORE MECHANICS:
+- World selection system (multiple worlds)
+- Progressive difficulty (increases over time)
+- Powerup/Ability system:
+  * Abilities unlock throughout game
+  * Resource-based ability usage
+  * Two types of abilities:
+    - Permanent unlockable abilities (tied to resource)
+    - Limited-time powerups (temporary boosts)
+- Antigravity as primary mechanic (specific implementation TBD)
+
+GAMEPLAY LOOP:
+- Player selects world
+- Navigate platforming challenges using antigravity mechanics
+- Collect resources and powerups
+- Unlock new abilities
+- Progress through increasingly difficult content
+- Metroidvania-style exploration and backtracking with new abilities
+
+
+OPEN QUESTIONS
+--------------
+
+1. How exactly does the antigravity mechanic work?
+   - Gravity flip (ceiling/floor)?
+   - Gravity direction control?
+   - Zero-gravity zones?
+   - Variable gravity strength?
+
+2. What is the resource system for abilities?
+   - Single resource type or multiple?
+   - How is it collected?
+   - Regenerating or consumable?
+
+3. Mobile controls approach?
+   - Virtual joystick?
+   - Gesture-based?
+   - Touch zones?
+
+4. World structure?
+   - Linear progression or open selection?
+   - How many worlds in prototype?
+   - World themes?
+
+5. Progression system?
+   - How are abilities unlocked? (collectibles, boss defeats, exploration)
+   - Save system requirements?
+
+6. Visual tone balance?
+   - More Hollow Knight (dark, atmospheric) or Mario (bright, cheerful)?
+   - Color palette preferences?
+
+
+DEPENDENCIES
+------------
+
+- User input on remaining design questions (above)
+- Atlas framework setup (COMPLETE)
+
+
+RISKS
+-----
+
+- Scope creep: Metroidvania games are complex; prototype must be carefully scoped
+- Mobile controls: Platformers on mobile can be challenging; control scheme critical
+- Performance: Mobile platform may constrain visual complexity
+- Gravity mechanics: Complex gravity systems can be difficult to implement and tune
+
+
+NOTES
+-----
+
+This spec establishes the high-level design direction. Next steps:
+1. Answer remaining open questions
+2. Create detailed design document
+3. Define prototype scope (which features for initial version)
+4. Plan technical architecture for mobile + PC deployment
+
+
+DEPENDENCIES
+------------
+
+- User input on design vision and direction
+- Atlas framework setup (COMPLETE)
+
+
+RISKS
+-----
+
+- Scope creep: Design phase could expand indefinitely without clear boundaries
+- Misalignment: Design direction may not match user's vision if questions aren't answered
+- Technical feasibility: Design ideas may exceed Godot 4.5 capabilities
+
+
+NOTES
+-----
+
+This spec is intentionally focused on gathering design requirements rather than
+implementing features. The PM role will use this to create a task plan for
+documenting the design direction.
+
+Once design direction is established, subsequent specs will address implementation.

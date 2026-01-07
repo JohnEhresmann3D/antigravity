@@ -1,0 +1,172 @@
+{
+    "sprite_sheet": "res://assets/sprites/enemies/projectiles.png",
+    "sheet_size": [
+        1024,
+        1024
+    ],
+    "projectiles": {
+        "energy_ball": {
+            "description": "Spinning energy projectile",
+            "frame_size": [
+                16,
+                16
+            ],
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 16,
+                    "y": 0,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 32,
+                    "y": 0,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 48,
+                    "y": 0,
+                    "w": 16,
+                    "h": 16
+                }
+            ],
+            "fps": 12,
+            "loop": true,
+            "speed": 200,
+            "damage": 1
+        },
+        "laser_bolt": {
+            "description": "Elongated laser shot",
+            "frame_size": [
+                24,
+                8
+            ],
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 16,
+                    "w": 24,
+                    "h": 8
+                },
+                {
+                    "x": 24,
+                    "y": 16,
+                    "w": 24,
+                    "h": 8
+                },
+                {
+                    "x": 48,
+                    "y": 16,
+                    "w": 24,
+                    "h": 8
+                },
+                {
+                    "x": 72,
+                    "y": 16,
+                    "w": 24,
+                    "h": 8
+                }
+            ],
+            "fps": 15,
+            "loop": true,
+            "speed": 300,
+            "damage": 1
+        },
+        "plasma_shot": {
+            "description": "Blob-like projectile, affected by gravity",
+            "frame_size": [
+                16,
+                16
+            ],
+            "frame_count": 4,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 24,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 16,
+                    "y": 24,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 32,
+                    "y": 24,
+                    "w": 16,
+                    "h": 16
+                },
+                {
+                    "x": 48,
+                    "y": 24,
+                    "w": 16,
+                    "h": 16
+                }
+            ],
+            "fps": 10,
+            "loop": true,
+            "speed": 150,
+            "damage": 1,
+            "affected_by_gravity": true
+        },
+        "impact": {
+            "description": "Explosion/hit effect for all projectiles",
+            "frame_size": [
+                32,
+                32
+            ],
+            "frame_count": 6,
+            "frames": [
+                {
+                    "x": 0,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 32,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 64,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 96,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 128,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                },
+                {
+                    "x": 160,
+                    "y": 40,
+                    "w": 32,
+                    "h": 32
+                }
+            ],
+            "fps": 15,
+            "loop": false
+        }
+    }
+}

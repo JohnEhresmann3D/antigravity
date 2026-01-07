@@ -1,0 +1,456 @@
+ANTIGRAVITY - CHARACTER DESIGN DOCUMENT
+========================================
+
+Document ID: CHAR-DESIGN-2026-01-06-001
+Created: 2026-01-06
+Status: Active
+Related: VDD-2026-01-06-001, GDD-2026-01-06-001
+
+---
+
+CHARACTER DESIGN OVERVIEW
+=========================
+
+Design Direction: 90s Saturday Morning Cartoon Aesthetic
+Target: Goofy, recognizable space character with distinctive silhouette
+Inspiration: Earthworm Jim, Ren & Stimpy, Rocko's Modern Life, Dexter's Lab
+
+Key Requirements:
+- Instantly recognizable silhouette
+- Goofy, friendly personality
+- Works in both bright and dark zones
+- Readable at small sizes (mobile)
+- Simple shapes for sprite animation
+- Bold outlines and vibrant colors
+
+
+CHARACTER CONCEPTS
+==================
+
+CONCEPT 1: COSMO THE CLUMSY ASTRONAUT
+--------------------------------------
+
+Description:
+Classic astronaut character with exaggerated cartoon proportions.
+
+Key Features:
+- Oversized round space helmet with big visor
+- Expressive cartoon eyes visible through visor
+- Chunky retro spacesuit (orange, white, blue)
+- Big head, smaller body, stubby limbs
+- Thick black outlines
+- Goofy, friendly expression
+
+Personality Through Design:
+- Clumsy but lovable
+- Enthusiastic space explorer
+- Classic "everyman" hero archetype
+
+Silhouette Strength: ★★★★★
+- Round helmet creates distinctive head shape
+- Chunky suit makes character stand out
+- Instantly recognizable from any angle
+
+Color Palette:
+- Primary: Bright orange (suit)
+- Secondary: Blue (visor, boots, accents)
+- Tertiary: White (helmet trim, zipper)
+- Eyes: Black with white highlights
+
+Animation Considerations:
+- Helmet can show various expressions through visor
+- Stubby limbs are easy to animate
+- Chunky shapes read well at small sizes
+- Simple construction for sprite work
+
+Best For:
+- Classic platformer feel
+- Broad appeal
+- Easy to animate
+
+
+CONCEPT 2: SPACE GOOBER (ALIEN)
+--------------------------------
+
+Description:
+Alien creature in a space suit with tentacle antenna and multiple eyes.
+
+Key Features:
+- Purple/pink alien head with wiggly antenna
+- Three googly eyes
+- Wide goofy grin with gap teeth
+- Colorful asymmetric suit (purple, green, yellow)
+- Tentacle hands
+- Chunky body with stubby legs
+
+Personality Through Design:
+- Quirky and weird
+- Lovably gross (90s cartoon style)
+- Unpredictable and energetic
+
+Silhouette Strength: ★★★★☆
+- Antenna create distinctive top silhouette
+- Asymmetric design is memorable
+- Multiple eyes are unique identifier
+
+Color Palette:
+- Primary: Purple (head/suit)
+- Secondary: Green (limbs/accents)
+- Tertiary: Yellow (suit details)
+- Accent: Pink (antenna, details)
+
+Animation Considerations:
+- Antenna can wiggle for personality
+- Multiple eyes allow for varied expressions
+- Tentacle hands add character
+- More complex to animate than Concept 1
+
+Best For:
+- Unique, memorable character
+- Stands out from typical platformer heroes
+- Appeals to fans of weird 90s cartoons
+
+
+CONCEPT 3: ROBO-GOOF (ROBOT-ASTRONAUT)
+---------------------------------------
+
+Description:
+Retro robot with round body and mechanical limbs.
+
+Key Features:
+- Round body (red and yellow panels)
+- Glass dome head showing expressive screen/eyes
+- Skinny mechanical limbs with ball joints
+- Antenna on top
+- Retro dials and gauges
+- Primary colors (red, yellow, blue, silver)
+
+Personality Through Design:
+- Retro-futuristic charm
+- Mechanical but expressive
+- Friendly robot companion vibe
+
+Silhouette Strength: ★★★★☆
+- Round body with antenna is distinctive
+- Skinny limbs contrast with body
+- Dome head is recognizable
+
+Color Palette:
+- Primary: Red (body panels)
+- Secondary: Yellow (body panels)
+- Tertiary: Blue (dome, limbs, boots)
+- Accent: Silver (mechanical parts)
+
+Animation Considerations:
+- Ball-jointed limbs allow for exaggerated poses
+- Screen face can show various expressions
+- Antenna can bounce/wiggle
+- Mechanical parts add visual interest
+
+Best For:
+- Retro-futuristic aesthetic
+- Robot character fans
+- Unique movement style (mechanical)
+
+
+RECOMMENDED CONCEPT
+===================
+
+Primary Recommendation: CONCEPT 1 - COSMO THE CLUMSY ASTRONAUT
+
+Rationale:
+1. Strongest silhouette recognition
+2. Easiest to animate (simple shapes)
+3. Broad appeal (classic astronaut)
+4. Works perfectly with "Antigravity" theme
+5. Best readability on mobile screens
+6. Fits both bright and dark zones
+7. Most aligned with platformer conventions
+
+The classic astronaut design with 90s cartoon exaggeration hits the sweet
+spot between familiar and unique. The oversized helmet creates an iconic
+silhouette while the chunky proportions make animation straightforward.
+
+
+CHARACTER SPECIFICATIONS
+=========================
+
+CHARACTER NAME: COSMO (Working Title)
+-------------------------------------
+
+Full Name: Cosmo the Clumsy Astronaut
+Nickname: Cosmo
+Species: Human (cartoon)
+Occupation: Space Explorer
+
+
+PHYSICAL SPECIFICATIONS
+-----------------------
+
+Sprite Size (Recommended):
+- Base: 32x32 pixels (can scale to 64x64 if needed)
+- Helmet: ~60% of total height
+- Body: ~40% of total height
+
+Proportions:
+- Head-to-body ratio: 1.5:1 (big head)
+- Limb length: Short and stubby
+- Overall shape: Round and chunky
+
+Color Specifications:
+
+Spacesuit Orange: #FF8C42
+- Main suit body
+- Helmet rim
+- Boots
+
+Visor Blue: #00D9FF
+- Helmet visor (semi-transparent)
+- Boot accents
+- Glove accents
+
+White: #FFFFFF
+- Helmet trim
+- Suit zipper/details
+- Highlights
+
+Dark Blue: #1A1A2E
+- Boot soles
+- Glove details
+- Shadows
+
+Black: #000000
+- Thick outlines (2-3 pixels)
+- Eye pupils
+
+Outline Thickness: 2-3 pixels (scales with sprite size)
+
+
+ANIMATION REQUIREMENTS
+======================
+
+ESSENTIAL ANIMATIONS (Prototype)
+---------------------------------
+
+1. IDLE
+   - Frames: 4-6
+   - Loop: Yes
+   - Details: Gentle breathing, visor reflection
+
+2. WALK/RUN
+   - Frames: 6-8
+   - Loop: Yes
+   - Details: Bouncy, clumsy gait
+
+3. JUMP
+   - Frames: 3-4
+   - Loop: No
+   - Details: Wind-up, launch, peak
+
+4. FALL
+   - Frames: 2-3
+   - Loop: Yes (if falling continuously)
+   - Details: Arms flailing
+
+5. LAND
+   - Frames: 2-3
+   - Loop: No
+   - Details: Impact squash, recovery
+
+6. GRAVITY FLIP
+   - Frames: 6-8
+   - Loop: No
+   - Details: Spinning transition, reorientation
+
+7. DAMAGE/HIT
+   - Frames: 2-3
+   - Loop: No
+   - Details: Knockback, flash
+
+8. DEATH/DEFEAT
+   - Frames: 4-6
+   - Loop: No
+   - Details: Dramatic fall, helmet crack
+
+
+EXPRESSION VARIATIONS
+---------------------
+
+Visor Expressions (shown through helmet):
+- Happy: Wide eyes, big smile
+- Surprised: Huge eyes, open mouth
+- Determined: Focused eyes, slight frown
+- Worried: Shifty eyes, nervous smile
+- Excited: Star eyes, huge grin
+
+Implementation: Swap face sprite within helmet area
+
+
+ABILITY ANIMATIONS
+------------------
+
+Gravity Flip Activation:
+- Character spins 180 degrees
+- Visor shows surprise/excitement
+- Particle effects around character
+- Duration: ~0.5 seconds
+
+Directional Gravity Control:
+- Character tilts in gravity direction
+- Visor shows concentration
+- Subtle glow effect
+- Continuous while active
+
+Zero-Gravity Movement:
+- Floating idle animation
+- Slower, floatier movement
+- Hair/antenna floating (if added)
+- Visor shows wonder/confusion
+
+
+VISUAL FEEDBACK
+===============
+
+GRAVITY STATE INDICATORS
+-------------------------
+
+Normal Gravity:
+- Standard upright stance
+- Normal eye position
+
+Flipped Gravity:
+- Character rotated 180°
+- Eyes adjust to maintain "up" orientation
+- Possible dizzy effect in visor
+
+Zero Gravity:
+- Floating pose
+- Slow rotation
+- Visor shows surprise
+
+Directional Gravity:
+- Character tilts toward gravity direction
+- Visor shows concentration
+- Possible motion lines
+
+
+DAMAGE/HEALTH FEEDBACK
+----------------------
+
+Taking Damage:
+- Flash white briefly
+- Knockback animation
+- Visor shows pain expression
+- Possible helmet crack effect (low health)
+
+Low Health:
+- Helmet cracks visible
+- Breathing animation more labored
+- Worried expression in visor
+
+Invincibility (Powerup):
+- Rainbow shimmer effect
+- Excited expression
+- Sparkle particles
+
+
+TECHNICAL SPECIFICATIONS
+=========================
+
+SPRITE SHEET LAYOUT
+-------------------
+
+Recommended Layout:
+- Idle: Row 1 (4-6 frames)
+- Walk: Row 2 (6-8 frames)
+- Jump: Row 3 (3-4 frames)
+- Fall: Row 4 (2-3 frames)
+- Land: Row 5 (2-3 frames)
+- Gravity Flip: Row 6 (6-8 frames)
+- Damage: Row 7 (2-3 frames)
+- Death: Row 8 (4-6 frames)
+
+Total Frames: ~35-45 frames for prototype
+Sheet Size: 512x512 or 1024x512 (depending on sprite size)
+
+
+MOBILE OPTIMIZATION
+-------------------
+
+Readability:
+- Thick outlines (minimum 2 pixels)
+- High contrast colors
+- Large, clear silhouette
+- Distinct from background
+
+Performance:
+- Single sprite sheet (minimize texture swaps)
+- Efficient frame counts
+- Texture atlas for all character states
+
+
+IMPLEMENTATION NOTES
+====================
+
+GODOT 4.5 SETUP
+---------------
+
+Node Structure:
+- CharacterBody2D (root)
+  - AnimatedSprite2D (character sprite)
+  - CollisionShape2D (hitbox)
+  - Area2D (hurtbox, if separate)
+  - Particles2D (effects)
+
+Animation Player:
+- Use AnimationPlayer for complex sequences
+- AnimatedSprite2D for frame-based animations
+- Blend both for best results
+
+Sprite Flip:
+- Use flip_h for horizontal flipping
+- Rotate node for gravity flip (smooth transition)
+- Scale for squash/stretch effects
+
+
+NEXT STEPS
+==========
+
+1. Finalize character concept (user approval)
+2. Create detailed sprite specifications
+3. Design sprite sheet layout
+4. Create placeholder sprites for prototype
+5. Implement in Godot with basic animations
+6. Test readability on mobile device
+7. Iterate based on gameplay feel
+
+
+ALTERNATIVE CONCEPTS
+====================
+
+If Concept 1 doesn't work:
+- Concept 2 (Space Goober) offers more unique personality
+- Concept 3 (Robo-Goof) provides mechanical charm
+- Can mix elements from multiple concepts
+- Can create variations on Concept 1 (different colors, details)
+
+
+NOTES
+=====
+
+The 90s Saturday morning cartoon aesthetic is perfect for:
+- Nostalgic appeal
+- Bold, readable visuals
+- Exaggerated animations
+- Goofy personality
+
+Cosmo the Clumsy Astronaut embodies these qualities while maintaining
+a strong, recognizable silhouette perfect for a platformer character.
+
+The design is intentionally simple to:
+- Facilitate sprite creation
+- Enable smooth animation
+- Ensure mobile readability
+- Support rapid prototyping
+
+Character can be refined and detailed after prototype proves core mechanics.

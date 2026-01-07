@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://d4b5fqux8uqg5"]
+
+[ext_resource type="Script" uid="uid://w0fetbi7cr5s" path="res://scripts/enemies/antigrav_orb.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://qpqq35drm2w2" path="res://assets/sprites/enemies/antigrav_orb.png" id="2_sprite"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ya5g"]
+atlas = ExtResource("2_sprite")
+region = Rect2(2, 44, 168, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edryq"]
+atlas = ExtResource("2_sprite")
+region = Rect2(338, 44, 168, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw655"]
+atlas = ExtResource("2_sprite")
+region = Rect2(170, 44, 168, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o0tx"]
+atlas = ExtResource("2_sprite")
+region = Rect2(506, 44, 168, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uats4"]
+atlas = ExtResource("2_sprite")
+region = Rect2(674, 44, 168, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b3dn"]
+atlas = ExtResource("2_sprite")
+region = Rect2(842, 44, 168, 168)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rofco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ya5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edryq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw655")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3o0tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uats4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b3dn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detection"]
+radius = 150.0
+
+[node name="AntigravOrb" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rofco")
+animation = &"Idle"
+frame_progress = 0.11488283
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_detection")
+
+[node name="HurtBox" type="Area2D" parent="." groups=["hurtbox"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_body")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
