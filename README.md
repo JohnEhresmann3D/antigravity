@@ -55,7 +55,7 @@ antigravity/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/antigravity.git
+   git clone https://github.com/JohnEhresmann3D/antigravity.git
    ```
 
 2. **Open in Godot 4.5**
