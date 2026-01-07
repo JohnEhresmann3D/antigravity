@@ -39,6 +39,8 @@ bld/
 
 # Atlas AI artifacts (Gemini brain directory)
 .gemini/
+atlas/
+artifacts/
 
 # Python cache
 __pycache__/
