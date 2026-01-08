@@ -1,0 +1,138 @@
+PLACEHOLDER ASSETS REPORT
+======================================================================
+
+File: scenes\level\checkpoint.tscn
+Line: 14
+Note: # PLACEHOLDER: Replace with checkpoint flag/marker sprite later
+----------------------------------------------------------------------
+
+File: scenes\level\moving_platform.tscn
+Line: 13
+Note: # PLACEHOLDER: Replace with platform tileset sprite later
+----------------------------------------------------------------------
+
+File: addons\gut\UserFileViewer.tscn
+Line: 28
+Note: text = "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used before final copy is available, but it may also be used to temporarily replace copy in a process called greeking, which allows designers to consider form without the meaning of the text influencing the design.
+----------------------------------------------------------------------
+
+File: scripts\enemies\antigrav_orb.gd
+Line: 114
+Note: # TODO: Drop antigravity resources (higher chance)
+----------------------------------------------------------------------
+
+File: scripts\enemies\flyer_drone.gd
+Line: 97
+Note: # TODO: Drop resources, play death effect
+----------------------------------------------------------------------
+
+File: scripts\enemies\turret.gd
+Line: 82
+Note: # TODO: Drop resources, play death effect
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 250
+Note: # TODO: Implement health system
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 251
+Note: # TODO: Add invincibility frames
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 252
+Note: # TODO: Add knockback
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 258
+Note: # TODO: Add landing particles
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 259
+Note: # TODO: Add landing sound
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 266
+Note: # TODO: Show UI notification
+----------------------------------------------------------------------
+
+File: scripts\player\player.gd
+Line: 267
+Note: # TODO: Play unlock effect
+----------------------------------------------------------------------
+
+File: scripts\projectiles\projectile.gd
+Line: 70
+Note: # TODO: Play impact effect
+----------------------------------------------------------------------
+
+File: addons\gut\collected_script.gd
+Line: 119
+Note: var inner_name = config_file.get_value(section, 'inner_class', 'Placeholder')
+----------------------------------------------------------------------
+
+File: addons\gut\collected_script.gd
+Line: 120
+Note: if(inner_name != 'Placeholder'):
+----------------------------------------------------------------------
+
+File: addons\gut\gut.gd
+Line: 68
+Note: # TODO 4.0
+----------------------------------------------------------------------
+
+File: addons\gut\gut.gd
+Line: 92
+Note: # TODO rework what this is and then document it here.
+----------------------------------------------------------------------
+
+File: addons\gut\gut.gd
+Line: 255
+Note: # TODO this appears to only be checked and never set anywhere.  Verify that this
+----------------------------------------------------------------------
+
+File: addons\gut\gut_to_move.gd
+Line: 18
+Note: d.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+----------------------------------------------------------------------
+
+File: addons\gut\input_sender.gd
+Line: 55
+Note: # TODO should this be done in _physics_process instead or should it be
+----------------------------------------------------------------------
+
+File: addons\gut\result_exporter.gd
+Line: 35
+Note: # TODO
+----------------------------------------------------------------------
+
+File: addons\gut\script_parser.gd
+Line: 112
+Note: # TODO this could be done with ClassDB instead of making instance.
+----------------------------------------------------------------------
+
+File: addons\gut\test.gd
+Line: 652
+Note: ## TODO see replace_by method, this could simplify the logic here.
+----------------------------------------------------------------------
+
+File: addons\gut\gui\GutControl.gd
+Line: 55
+Note: # TODO This might not need to be called deferred after changing GutUtils to
+----------------------------------------------------------------------
+
+File: addons\gut\gui\GutRunner.gd
+Line: 92
+Note: # TODO this should be checked and _wrote_results should maybe not be set, or
+----------------------------------------------------------------------
+
+File: addons\gut\gui\ShellOutOptions.gd
+Line: 216
+Note: _txt_additional_arguments.value_ctrl.placeholder_text = "Put your arguments here.  Ex:  --verbose -glog 0"
+----------------------------------------------------------------------
+

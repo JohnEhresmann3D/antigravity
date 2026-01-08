@@ -1,9 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 
-# Atlas framework (local development only)
-atlas/
-artifacts/
 .import/
 
 # Godot-specific
@@ -43,6 +40,9 @@ bld/
 
 # Atlas AI artifacts (Gemini brain directory)
 .gemini/
+
+# Atlas AI workflows and documentation
+atlas/
 
 # Python cache
 __pycache__/

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://moving_platform_001"]
+
+[ext_resource type="Script" path="res://scripts/level/moving_platform.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(96, 16)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+sync_to_physics = true
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+# PLACEHOLDER: Replace with platform tileset sprite later
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+color = Color(0.5, 0.7, 0.9, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://gip3jhud4h6o"]
+
+[ext_resource type="Script" uid="uid://d3cc4aloumfsd" path="res://scripts/collectibles/gravity_core.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cfda38nyo02tv" path="res://assets/sprites/collectibles/gravity_core.png" id="2_texture"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="GravityCore" type="Area2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
