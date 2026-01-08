@@ -1,5 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Atlas framework (local development only)
+atlas/
+artifacts/
 .import/
 
 # Godot-specific
