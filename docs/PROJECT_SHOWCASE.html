@@ -824,6 +824,169 @@
             </div>
         </section>
 
+        <!-- Glow Effects Showcase -->
+        <section class="progress-section animate-in">
+            <h2>✨ Glow Effects System</h2>
+            <p style="text-align: center; color: #ccc; margin-bottom: 30px;">Advanced emission mapping for dynamic
+                lighting effects</p>
+
+            <div class="character-showcase">
+                <div class="character-card" onclick="openGlowLightbox(0)">
+                    <img src="../assets/sprites/enemies/antigrav_orb.png" alt="Original Sprite">
+                    <h3>Original Sprite</h3>
+                    <p>Base antigrav orb sprite</p>
+                </div>
+                <div class="character-card" onclick="openGlowLightbox(1)">
+                    <img src="../assets/sprites/enemies/antigrav_orb_emission.png" alt="Emission Map">
+                    <h3>Emission Map</h3>
+                    <p>Brightness-based glow</p>
+                </div>
+                <div class="character-card" onclick="openGlowLightbox(2)">
+                    <img src="../assets/sprites/enemies/antigrav_orb_glow_r0g255b255.png" alt="Cyan Glow">
+                    <h3>Cyan Glow</h3>
+                    <p>Color-specific outline</p>
+                </div>
+                <div class="character-card" onclick="openGlowLightbox(3)">
+                    <img src="../assets/sprites/enemies/antigrav_orb_edge_glow.png" alt="Edge Glow">
+                    <h3>Edge Glow</h3>
+                    <p>Rim lighting effect</p>
+                </div>
+                <div class="character-card" onclick="openGlowLightbox(4)">
+                    <img src="../assets/sprites/enemies/antigrav_orb_hdr_emission.png" alt="HDR Emission">
+                    <h3>HDR Emission</h3>
+                    <p>High dynamic range bloom</p>
+                </div>
+            </div>
+
+            <div class="feature-list" style="margin-top: 30px;">
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎨</span>
+                    <strong>Automated Generation</strong>
+                    <p>Python script analyzes sprites and generates emission maps automatically</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🌈</span>
+                    <strong>Multiple Modes</strong>
+                    <p>Brightness-based, color-specific, edge glow, and HDR emission</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">⚡</span>
+                    <strong>Godot Integration</strong>
+                    <p>Direct compatibility with Godot's emission and glow systems</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="GLOW_GENERATION_GUIDE.md" target="_blank"
+                    style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #00d4ff, #8a2be2); 
+                          border-radius: 25px; color: white; text-decoration: none; font-weight: bold; transition: transform 0.3s;">
+                    📖 View Glow Generation Guide
+                </a>
+            </div>
+        </section>
+
+        <!-- Animation Showcase -->
+        <section class="progress-section animate-in">
+            <h2>🎬 Animation System</h2>
+            <p style="text-align: center; color: #ccc; margin-bottom: 30px;">High-quality sprite animations with smooth
+                state transitions</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Animation States</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Character Types</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1024²</div>
+                    <div class="stat-label">Sprite Resolution</div>
+                </div>
+            </div>
+
+            <div class="feature-list" style="margin-top: 30px;">
+                <div class="feature-item complete">
+                    <span class="feature-icon">👤</span>
+                    <strong>Cosmo (Player)</strong>
+                    <p>8 animation states: idle, walk, run, jump, fall, land, gravity_flip, damage</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🚁</span>
+                    <strong>Flyer Drone</strong>
+                    <p>4 states: idle, flying, alert, damaged | Chase AI with line-of-sight</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎯</span>
+                    <strong>Turret</strong>
+                    <p>4 states: idle, aiming, firing, damaged | Stationary targeting AI</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🌀</span>
+                    <strong>Antigrav Orb</strong>
+                    <p>4 states: idle, gravity_flip, patrol, damaged | Whimsical floating motion</p>
+                </div>
+            </div>
+
+            <div
+                style="background: rgba(138, 43, 226, 0.1); padding: 30px; border-radius: 15px; margin-top: 30px; border: 2px solid rgba(138, 43, 226, 0.3);">
+                <h3 style="color: #00d4ff; margin-bottom: 20px;">🎭 Animation Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item complete">
+                        <span class="feature-icon">🔄</span>
+                        <strong>State-Based Controller</strong>
+                        <p>AnimationControllerComponent manages smooth transitions between states</p>
+                    </div>
+                    <div class="feature-item complete">
+                        <span class="feature-icon">🎨</span>
+                        <strong>90s Cartoon Aesthetic</strong>
+                        <p>Vibrant colors, expressive characters, retro animation style</p>
+                    </div>
+                    <div class="feature-item complete">
+                        <span class="feature-icon">⚙️</span>
+                        <strong>Configurable FPS</strong>
+                        <p>Each animation has optimized frame rate (6-15 FPS) for perfect timing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Tools -->
+        <section class="progress-section animate-in">
+            <h2>🛠️ Development Tools</h2>
+            <p style="text-align: center; color: #ccc; margin-bottom: 30px;">Custom scripts and utilities for asset
+                pipeline</p>
+
+            <div class="feature-list">
+                <div class="feature-item complete">
+                    <span class="feature-icon">✨</span>
+                    <strong>Glow Map Generator</strong>
+                    <p>Automated emission map creation with 4 generation modes (emission, color, edge, HDR)</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🔍</span>
+                    <strong>Godot Project Analyzer</strong>
+                    <p>Scans project structure, scripts, and scenes for comprehensive analysis</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎨</span>
+                    <strong>Transparency Processor</strong>
+                    <p>Ensures proper RGBA format and pure alpha transparency for Godot</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🖼️</span>
+                    <strong>Image Format Fixer</strong>
+                    <p>Validates and fixes image import issues, regenerates import files</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎬</span>
+                    <strong>Animation Scene Builder</strong>
+                    <p>Automated scene generation from sprite sheets with proper configuration</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer>
             <p>🚀 <strong>Antigravity</strong> - A gravity-defying 2D platformer built with Godot 4.5</p>
@@ -896,6 +1059,14 @@
             document.body.style.overflow = 'hidden';
         }
 
+        function openGlowLightbox(index) {
+            currentGallery = 'glow';
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
         function closeLightbox(event) {
             if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
                 document.getElementById('lightbox').classList.remove('active');
@@ -905,13 +1076,15 @@
 
         function changeImage(direction, event) {
             event.stopPropagation();
-            const gallery = currentGallery === 'characters' ? characters : conceptArt;
+            const gallery = currentGallery === 'characters' ? characters :
+                currentGallery === 'concept' ? conceptArt : glowEffects;
             currentImageIndex = (currentImageIndex + direction + gallery.length) % gallery.length;
             updateLightboxImage();
         }
 
         function updateLightboxImage() {
-            const gallery = currentGallery === 'characters' ? characters : conceptArt;
+            const gallery = currentGallery === 'characters' ? characters :
+                currentGallery === 'concept' ? conceptArt : glowEffects;
             const item = gallery[currentImageIndex];
             document.getElementById('lightbox-img').src = item.src;
             document.getElementById('lightbox-title').textContent = item.title;
