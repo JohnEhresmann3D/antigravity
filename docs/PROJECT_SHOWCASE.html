@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity - Project Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.9), rgba(48, 43, 99, 0.9));
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 4em;
+            background: linear-gradient(45deg, #00d4ff, #8a2be2, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #00d4ff, #8a2be2);
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Character Showcase */
+        .character-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            image-rendering: pixelated;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(138, 43, 226, 0.8);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(138, 43, 226, 0.8);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .character-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 212, 255, 0.2));
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            cursor: pointer;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.5);
+        }
+
+        .character-card img {
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+            image-rendering: pixelated;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.5));
+            transition: transform 0.3s;
+        }
+
+        .character-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .character-card h3 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        .character-card p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .progress-section h2 {
+            color: #00d4ff;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            margin: 30px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #8a2be2);
+            border-radius: 15px;
+            transition: width 1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(138, 43, 226, 0.1));
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        /* Feature List */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: #8a2be2;
+            transform: translateX(10px);
+        }
+
+        .feature-item.complete {
+            border-left-color: #00ff88;
+        }
+
+        .feature-item.in-progress {
+            border-left-color: #ffaa00;
+        }
+
+        .feature-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #00d4ff, #8a2be2);
+        }
+
+        .timeline-item {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            width: 45%;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #00d4ff;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 2px solid rgba(138, 43, 226, 0.3);
+        }
+
+        footer p {
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="animate-in">
+            <h1>🚀 ANTIGRAVITY</h1>
+            <p class="tagline">A Gravity-Defying 2D Platformer</p>
+            <div class="status-badge">Phase 1: 95% Complete | 75 Tests Passing</div>
+        </header>
+
+        <!-- Character Showcase -->
+        <section class="character-showcase animate-in">
+            <div class="character-card" onclick="openLightbox(0)">
+                <img src="https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/characters/cosmo_spritesheet.png"
+                    alt="Cosmo"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%238a2be2%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECosmo%3C/text%3E%3C/svg%3E'">
+                <h3>Cosmo</h3>
+                <p>The Player Character</p>
+            </div>
+            <div class="character-card" onclick="openLightbox(1)">
+                <img src="https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/flyer_drone.png"
+                    alt="Flyer Drone"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%2300d4ff%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2218%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3EFlyer%3C/text%3E%3C/svg%3E'">
+                <h3>Flyer Drone</h3>
+                <p>Patrol & Chase AI</p>
+            </div>
+            <div class="character-card" onclick="openLightbox(2)">
+                <img src="https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/turret.png"
+                    alt="Turret"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23ff00ff%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2218%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ETurret%3C/text%3E%3C/svg%3E'">
+                <h3>Turret</h3>
+                <p>Stationary Firing</p>
+            </div>
+            <div class="character-card" onclick="openLightbox(3)">
+                <img src="https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/antigrav_orb.png"
+                    alt="Antigrav Orb"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%2300ff88%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2216%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3EAntigrav%3C/text%3E%3C/svg%3E'">
+                <h3>Antigrav Orb</h3>
+                <p>Gravity Manipulation</p>
+            </div>
+        </section>
+
+        <!-- Concept Art Gallery -->
+        <section class="progress-section animate-in">
+            <h2>🎨 Concept Art</h2>
+            <p style="text-align: center; color: #ccc; margin-bottom: 30px;">Early character designs and visual
+                development</p>
+            <div class="character-showcase">
+                <div class="character-card" onclick="openConceptLightbox(0)">
+                    <img src="../artifacts/docs/character_concept_1_cosmo.jpg" alt="Cosmo Concept"
+                        onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/artifacts/docs/character_concept_1_cosmo.jpg'">
+                    <h3>Cosmo Concept</h3>
+                    <p>Main Character Design</p>
+                </div>
+                <div class="character-card" onclick="openConceptLightbox(1)">
+                    <img src="../artifacts/docs/character_concept_2_goober.jpg" alt="Goober Concept"
+                        onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/artifacts/docs/character_concept_2_goober.jpg'">
+                    <h3>Goober Concept</h3>
+                    <p>Alternative Character</p>
+                </div>
+                <div class="character-card" onclick="openConceptLightbox(2)">
+                    <img src="../artifacts/docs/character_concept_3_robogoof.jpg" alt="RoboGoof Concept"
+                        onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/artifacts/docs/character_concept_3_robogoof.jpg'">
+                    <h3>RoboGoof Concept</h3>
+                    <p>Robot Character Design</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+            <div class="lightbox-close" onclick="closeLightbox(event)">×</div>
+            <div class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">‹</div>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="">
+                <div class="lightbox-caption">
+                    <h3 id="lightbox-title"></h3>
+                    <p id="lightbox-desc"></p>
+                </div>
+            </div>
+            <div class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">›</div>
+        </div>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid animate-in">
+            <div class="stat-card">
+                <div class="stat-number">75</div>
+                <div class="stat-label">Unit Tests Passing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Test Pass Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Components Built</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Enemy Types</div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section animate-in">
+            <h2>🎯 Development Progress</h2>
+
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>Phase 1: Core Systems</span>
+                    <span>95%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 95%;">95%</div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>Phase 2: Level 1-2</span>
+                    <span>0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%;">0%</div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>Overall Project</span>
+                    <span>15%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 15%;">15%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="progress-section animate-in">
+            <h2>✨ Implemented Features</h2>
+            <div class="feature-list">
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Player Movement System</strong>
+                    <p>Acceleration-based movement with run mode, advanced jump mechanics</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Gravity System</strong>
+                    <p>Global manager, zones, directional control, strength modulation</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Component Architecture</strong>
+                    <p>Health, Movement, Damage, Collectible, Animation + 3 AI components</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Enemy AI</strong>
+                    <p>Patrol, Chase, and Turret AI with 3 fully functional enemy types</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Animation System</strong>
+                    <p>8-state animation controller with smooth transitions</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">✅</span>
+                    <strong>Testing Infrastructure</strong>
+                    <p>75 unit tests, GUT framework, GitHub Actions CI/CD</p>
+                </div>
+                <div class="feature-item in-progress">
+                    <span class="feature-icon">⏳</span>
+                    <strong>Resource Collection</strong>
+                    <p>Gravity Cores system - Next to implement</p>
+                </div>
+                <div class="feature-item in-progress">
+                    <span class="feature-icon">⏳</span>
+                    <strong>Level 1: Awakening</strong>
+                    <p>Tutorial level - Paper design complete, ready to build</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="progress-section animate-in">
+            <h2>📅 Development Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>✅ Phase 1: Core Systems (95%)</h3>
+                        <p><strong>Completed:</strong> Player mechanics, gravity system, component architecture, enemy
+                            AI, animation system, testing infrastructure</p>
+                        <p><strong>Remaining:</strong> Resource collection, ability unlock system</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background: #ffaa00;"></div>
+                    <div class="timeline-content">
+                        <h3>⏳ Phase 2: Level 1-2 (Next)</h3>
+                        <p><strong>Goal:</strong> Build tutorial level and gravity training level</p>
+                        <p><strong>Estimated:</strong> 5-8 weeks</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background: #666;"></div>
+                    <div class="timeline-content">
+                        <h3>🔮 Phase 3-6: Full Game</h3>
+                        <p><strong>Includes:</strong> Levels 3-6, bosses, UI/HUD, audio, polish, testing</p>
+                        <p><strong>Estimated:</strong> 3-5 months</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Achievements -->
+        <section class="progress-section animate-in">
+            <h2>🏆 Technical Achievements</h2>
+            <div class="feature-list">
+                <div class="feature-item complete">
+                    <span class="feature-icon">🧪</span>
+                    <strong>Professional Testing</strong>
+                    <p>75 unit tests with 100% pass rate, GUT framework, CI/CD pipeline</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🏗️</span>
+                    <strong>Modular Architecture</strong>
+                    <p>Component-based design for maximum reusability and maintainability</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎮</span>
+                    <strong>Advanced Physics</strong>
+                    <p>Custom gravity system with zones, directional control, and strength modulation</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🤖</span>
+                    <strong>Smart AI</strong>
+                    <p>Modular AI components with patrol, chase, and targeting behaviors</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">📚</span>
+                    <strong>Complete Documentation</strong>
+                    <p>GDD, scope definition, level designs, component guides, testing docs</p>
+                </div>
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎨</span>
+                    <strong>90s Cartoon Aesthetic</strong>
+                    <p>Vibrant character sprites with retro animation style</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documentation Browser -->
+        <section class="progress-section animate-in">
+            <h2>📚 Documentation</h2>
+            <p style="text-align: center; color: #ccc; margin-bottom: 30px;">Comprehensive design documents and
+                technical guides</p>
+
+            <div class="feature-list">
+                <!-- Game Design -->
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎮</span>
+                    <strong><a href="GDD_UPDATED_2026-01-07.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Game Design Document</a></strong>
+                    <p>Complete GDD with mechanics, systems, and vision</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">📋</span>
+                    <strong><a href="SCOPE_DEFINITION.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Scope Definition</a></strong>
+                    <p>Project scope, features, timeline, and MVP definition</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">🗺️</span>
+                    <strong><a href="LEVEL_1_DESIGN.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Level 1 Design</a></strong>
+                    <p>Detailed paper design for tutorial level "Awakening"</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">📝</span>
+                    <strong><a href="DESIGN_SESSION_SUMMARY.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Design Session Summary</a></strong>
+                    <p>Overview of all design decisions and documentation</p>
+                </div>
+
+                <!-- Technical Specs -->
+                <div class="feature-item complete">
+                    <span class="feature-icon">⚡</span>
+                    <strong><a href="GRAVITY_STAMINA_SPEC.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Gravity Stamina Spec</a></strong>
+                    <p>Technical specification for stamina system mechanics</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">🧪</span>
+                    <strong><a href="TESTING_GUIDE.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Testing Guide</a></strong>
+                    <p>Unit testing guide with GUT framework and best practices</p>
+                </div>
+
+                <!-- Setup Guides -->
+                <div class="feature-item complete">
+                    <span class="feature-icon">🎬</span>
+                    <strong><a href="setup/ANIMATION_SETUP_GUIDE.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Animation Setup Guide</a></strong>
+                    <p>Step-by-step guide for setting up character animations</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">⚙️</span>
+                    <strong><a href="setup/QUICK_ANIMATION_REFERENCE.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Quick Animation Reference</a></strong>
+                    <p>Quick reference for animation states and parameters</p>
+                </div>
+
+                <!-- Component Guides -->
+                <div class="feature-item complete">
+                    <span class="feature-icon">🔧</span>
+                    <strong><a href="../scripts/components/COMPONENT_GUIDE.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Component Guide</a></strong>
+                    <p>Documentation for all game components and their usage</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">📖</span>
+                    <strong><a href="../scripts/QUICK_REFERENCE.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Player Controller Reference</a></strong>
+                    <p>Quick reference for player mechanics and gravity system</p>
+                </div>
+
+                <!-- Asset Guides -->
+                <div class="feature-item complete">
+                    <span class="feature-icon">👾</span>
+                    <strong><a href="../assets/sprites/enemies/ENEMIES_GUIDE.txt" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Enemies Guide</a></strong>
+                    <p>Guide to enemy sprites and their animations</p>
+                </div>
+
+                <div class="feature-item complete">
+                    <span class="feature-icon">🖼️</span>
+                    <strong><a href="../IMAGE_FIX_README.md" target="_blank"
+                            style="color: #00d4ff; text-decoration: none;">Image Fix Guide</a></strong>
+                    <p>Guide for fixing image rendering issues</p>
+                </div>
+            </div>
+
+            <div
+                style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 212, 255, 0.1); border-radius: 10px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                <p style="color: #00d4ff; font-size: 1.1em; margin: 0;">
+                    <strong>📦 All documentation is version-controlled and available in the repository</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>🚀 <strong>Antigravity</strong> - A gravity-defying 2D platformer built with Godot 4.5</p>
+            <p>Developed with professional software engineering practices</p>
+            <p style="margin-top: 20px; color: #00d4ff;">Phase 1: 95% Complete | 75/75 Tests Passing | Ready for Level
+                Development</p>
+        </footer>
+    </div>
+
+    <script>
+        // Character data for lightbox
+        const characters = [
+            {
+                src: 'https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/characters/cosmo_spritesheet.png',
+                title: 'Cosmo',
+                desc: 'The Player Character - 90s cartoon style with 8 animation states'
+            },
+            {
+                src: 'https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/flyer_drone.png',
+                title: 'Flyer Drone',
+                desc: 'Patrol & Chase AI - Autonomous flying enemy with line-of-sight detection'
+            },
+            {
+                src: 'https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/turret.png',
+                title: 'Turret',
+                desc: 'Stationary Firing - Automated defense system with targeting AI'
+            },
+            {
+                src: 'https://raw.githubusercontent.com/JohnEhresmann3D/antigravity/main/assets/sprites/enemies/antigrav_orb.png',
+                title: 'Antigrav Orb',
+                desc: 'Gravity Manipulation - Floating enemy that demonstrates antigravity powers'
+            }
+        ];
+
+        // Concept art data for lightbox
+        const conceptArt = [
+            {
+                src: '../artifacts/docs/character_concept_1_cosmo.jpg',
+                title: 'Cosmo - Main Character Concept',
+                desc: 'Early concept art for the player character with 90s cartoon aesthetic'
+            },
+            {
+                src: '../artifacts/docs/character_concept_2_goober.jpg',
+                title: 'Goober - Alternative Character',
+                desc: 'Alternative character design exploration'
+            },
+            {
+                src: '../artifacts/docs/character_concept_3_robogoof.jpg',
+                title: 'RoboGoof - Robot Character',
+                desc: 'Robot character concept with mechanical design elements'
+            }
+        ];
+
+        let currentImageIndex = 0;
+        let currentGallery = 'characters'; // Track which gallery is open
+
+        function openLightbox(index) {
+            currentGallery = 'characters';
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openConceptLightbox(index) {
+            currentGallery = 'concept';
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function changeImage(direction, event) {
+            event.stopPropagation();
+            const gallery = currentGallery === 'characters' ? characters : conceptArt;
+            currentImageIndex = (currentImageIndex + direction + gallery.length) % gallery.length;
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const gallery = currentGallery === 'characters' ? characters : conceptArt;
+            const item = gallery[currentImageIndex];
+            document.getElementById('lightbox-img').src = item.src;
+            document.getElementById('lightbox-title').textContent = item.title;
+            document.getElementById('lightbox-desc').textContent = item.desc;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                } else if (e.key === 'ArrowLeft') {
+                    changeImage(-1, { stopPropagation: () => { } });
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1, { stopPropagation: () => { } });
+                }
+            }
+        });
+
+        // Animate progress bars on load
+        window.addEventListener('load', () => {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

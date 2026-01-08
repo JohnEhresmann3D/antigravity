@@ -1,0 +1,559 @@
+ANTIGRAVITY - TECHNICAL REQUIREMENTS DOCUMENT
+==============================================
+
+Document ID: TRD-2026-01-06-001
+Created: 2026-01-06
+Status: Active
+Related GDD: GDD-2026-01-06-001
+
+---
+
+TECHNICAL OVERVIEW
+==================
+
+Platform: Godot 4.5
+Renderer: Forward Plus (2D)
+Primary Target: Mobile (Android/iOS)
+Secondary Target: PC (Windows/Linux/Mac)
+Scope: Prototype
+
+
+PLATFORM REQUIREMENTS
+=====================
+
+MOBILE (PRIMARY TARGET)
+-----------------------
+
+Target Devices:
+- Mid-range smartphones (2020+)
+- Tablets (optional, should work but not optimized)
+
+Minimum Specifications:
+- OS: Android 8.0+ / iOS 13+
+- RAM: 2GB+
+- GPU: OpenGL ES 3.0 / Metal support
+- Storage: 100MB (prototype)
+
+Performance Targets:
+- Frame Rate: 60 FPS (stable)
+- Load Time: < 3 seconds (world load)
+- Battery: Efficient (not excessive drain)
+
+Screen Considerations:
+- Aspect Ratios: 16:9, 18:9, 19.5:9
+- Orientations: TBD (portrait vs. landscape)
+- Safe Areas: Account for notches, rounded corners
+- Resolution: 1080p base, scalable
+
+
+PC (SECONDARY TARGET)
+---------------------
+
+Target Systems:
+- Windows 10/11
+- macOS 10.15+
+- Linux (Ubuntu 20.04+)
+
+Minimum Specifications:
+- RAM: 4GB
+- GPU: Any with OpenGL 3.3+ support
+- Storage: 200MB
+
+Performance Targets:
+- Frame Rate: 60+ FPS
+- Resolution: 1920x1080 native, scalable to 4K
+
+Input Methods:
+- Keyboard + Mouse
+- Gamepad (Xbox, PlayStation, generic)
+
+
+GODOT 4.5 SPECIFIC CONSIDERATIONS
+==================================
+
+ENGINE FEATURES TO USE
+----------------------
+
+2D Rendering:
+- TileMap for level construction
+- Sprite2D for characters and objects
+- AnimatedSprite2D for animations
+- CanvasLayer for UI
+- Parallax backgrounds
+
+Physics:
+- CharacterBody2D for player
+- RigidBody2D for physics objects
+- Area2D for triggers and zones
+- Custom gravity implementation
+
+Input:
+- Input mapping for cross-platform support
+- Touch input handling for mobile
+- Gamepad support for PC
+
+Export:
+- Android export template
+- iOS export template (requires macOS for signing)
+- Desktop export templates
+
+
+TECHNICAL ARCHITECTURE
+======================
+
+CORE SYSTEMS
+------------
+
+1. GRAVITY SYSTEM (Modular)
+   
+   Components:
+   - GravityManager (singleton/autoload)
+     * Controls global gravity direction
+     * Manages gravity strength
+     * Handles gravity zones
+   
+   - GravityZone (Area2D)
+     * Defines zone-specific gravity
+     * Types: Normal, Zero-G, Custom
+   
+   - PlayerGravityController
+     * Applies gravity to player
+     * Handles gravity flip ability
+     * Manages directional control
+   
+   Design:
+   - Modular: Each component can be toggled independently
+   - Event-driven: Gravity changes emit signals
+   - Debuggable: Gravity strength adjustable at runtime
+
+
+2. ABILITY SYSTEM
+   
+   Components:
+   - AbilityManager (singleton/autoload)
+     * Tracks unlocked abilities
+     * Manages ability cooldowns
+     * Handles resource consumption
+   
+   - Ability (Resource or Script)
+     * Base class for all abilities
+     * Properties: cost, cooldown, duration
+     * Methods: activate(), deactivate(), can_use()
+   
+   - PlayerAbilityController
+     * Interfaces with AbilityManager
+     * Handles player input for abilities
+     * Visual feedback for ability state
+   
+   Types:
+   - Permanent abilities (gravity flip, etc.)
+   - Temporary powerups (speed boost, etc.)
+
+
+3. RESOURCE SYSTEM
+   
+   Components:
+   - ResourceManager (singleton/autoload)
+     * Tracks current resource amount
+     * Manages resource capacity
+     * Handles resource collection
+   
+   - Collectible (Area2D)
+     * Resource pickups
+     * Breakable containers
+   
+   - EnemyDropper
+     * Random resource drops from enemies
+     * Configurable drop rates
+   
+   Design:
+   - Single resource type for prototype
+   - Expandable to multiple types
+   - Persistent across scenes (via manager)
+
+
+4. PROGRESSION SYSTEM
+   
+   Components:
+   - ProgressionManager (singleton/autoload)
+     * Tracks defeated bosses
+     * Manages unlocked abilities
+     * Handles world completion state
+   
+   - SaveSystem
+     * Saves progression data
+     * Loads player state
+     * Platform-specific save locations
+   
+   Design:
+   - Boss defeats trigger ability unlocks
+   - Persistent progression (optional for prototype)
+   - Expandable for multiple worlds
+
+
+5. WORLD/LEVEL SYSTEM
+   
+   Components:
+   - WorldManager (singleton/autoload)
+     * Handles world selection
+     * Manages scene transitions
+     * Tracks world state
+   
+   - Level (Scene)
+     * Self-contained world/area
+     * Interconnected rooms
+     * Metroidvania-style layout
+   
+   Design:
+   - Modular level design (rooms as subscenes)
+   - Efficient scene loading
+   - Support for backtracking
+
+
+INPUT SYSTEM
+============
+
+MOBILE CONTROLS (TBD - Requires Design Decision)
+-------------------------------------------------
+
+Option 1: Virtual Joystick
+- Left side: Movement joystick
+- Right side: Action buttons (jump, ability)
+- Gravity controls: Additional buttons or gestures
+
+Option 2: Touch Zones
+- Left half: Movement
+- Right half: Jump
+- Swipe gestures: Gravity control
+- Tap: Abilities
+
+Option 3: Gesture-Based
+- Swipe: Movement direction
+- Tap: Jump
+- Hold: Abilities
+- Multi-touch: Gravity control
+
+Recommendation: Prototype with virtual joystick (most familiar)
+
+
+PC CONTROLS
+-----------
+
+Keyboard:
+- Arrow Keys / WASD: Movement
+- Space: Jump
+- Shift: Ability 1 (gravity flip)
+- E: Ability 2
+- Q: Gravity direction control
+- ESC: Pause
+
+Gamepad:
+- Left Stick: Movement
+- A/Cross: Jump
+- B/Circle: Ability 1
+- X/Square: Ability 2
+- Right Stick: Gravity direction
+- Start: Pause
+
+
+PERFORMANCE OPTIMIZATION
+========================
+
+MOBILE OPTIMIZATION STRATEGIES
+-------------------------------
+
+1. Rendering:
+   - Sprite batching (minimize draw calls)
+   - Texture atlasing
+   - Occlusion culling for off-screen objects
+   - Limit particle effects
+
+2. Physics:
+   - Optimize collision shapes (simple polygons)
+   - Reduce physics tick rate if needed
+   - Use Area2D for triggers (not RigidBody2D)
+   - Spatial partitioning for large levels
+
+3. Memory:
+   - Texture compression
+   - Unload unused assets
+   - Object pooling for frequently spawned objects
+   - Efficient scene instancing
+
+4. Code:
+   - Minimize per-frame operations
+   - Cache references
+   - Use signals efficiently
+   - Profile and optimize hot paths
+
+
+PERFORMANCE MONITORING
+----------------------
+
+Metrics to Track:
+- FPS (target: 60)
+- Frame time (target: < 16.67ms)
+- Draw calls
+- Memory usage
+- Physics objects count
+
+Tools:
+- Godot profiler
+- Device-specific profiling tools
+- In-game debug overlay (for testing)
+
+
+DATA MANAGEMENT
+===============
+
+SAVE SYSTEM (Optional for Prototype)
+-------------------------------------
+
+Data to Save:
+- Unlocked abilities
+- Defeated bosses
+- Current resources
+- World completion state
+- Player position (checkpoint)
+
+Save Format:
+- JSON or Godot's ConfigFile
+- Encrypted for release (not prototype)
+
+Save Location:
+- Mobile: user://save_data.json
+- PC: user://save_data.json
+
+Implementation:
+- Auto-save on checkpoints
+- Manual save option
+- Cloud save (post-prototype)
+
+
+ASSET PIPELINE
+==============
+
+SPRITE SPECIFICATIONS
+---------------------
+
+Player Character:
+- Size: 32x32 or 64x64 pixels
+- Format: PNG with transparency
+- Frames: 4-8 per animation
+- Texture atlas: Single sheet per character
+
+Enemies:
+- Size: Varies by type (16x16 to 64x64)
+- Format: PNG with transparency
+- Texture atlas: Per enemy type or combined
+
+Tiles:
+- Size: 16x16 or 32x32 pixels
+- Format: PNG
+- Tileset: Single atlas for each zone type
+
+UI:
+- Format: PNG or SVG (for scaling)
+- Resolution: 2x for retina displays
+- Nine-patch for scalable elements
+
+
+AUDIO SPECIFICATIONS (Post-Prototype)
+--------------------------------------
+
+Music:
+- Format: OGG Vorbis
+- Looping: Seamless loops
+- Bitrate: 128-192 kbps
+
+Sound Effects:
+- Format: WAV or OGG
+- Length: Short (< 2 seconds typically)
+- Mixing: Normalized levels
+
+
+DEVELOPMENT WORKFLOW
+====================
+
+VERSION CONTROL
+---------------
+
+System: Git
+Repository: TBD
+Branch Strategy:
+- main: Stable prototype builds
+- dev: Active development
+- feature/*: Individual features
+
+Ignore:
+- .godot/ (Godot cache)
+- .import/ (import cache)
+- *.import files (auto-generated)
+- Build artifacts
+
+
+PROJECT STRUCTURE
+-----------------
+
+Recommended Directory Layout:
+
+```
+res://
+├── scenes/
+│   ├── player/
+│   ├── enemies/
+│   ├── levels/
+│   ├── ui/
+│   └── world/
+├── scripts/
+│   ├── autoload/
+│   ├── abilities/
+│   ├── gravity/
+│   └── utilities/
+├── assets/
+│   ├── sprites/
+│   ├── tilesets/
+│   ├── audio/
+│   └── fonts/
+├── resources/
+│   ├── abilities/
+│   └── enemies/
+└── addons/
+    └── (third-party plugins)
+```
+
+
+TESTING STRATEGY
+================
+
+PROTOTYPE TESTING
+-----------------
+
+Focus Areas:
+1. Core gravity mechanics (feel, responsiveness)
+2. Mobile controls (usability, comfort)
+3. Performance (60 FPS target)
+4. Ability system (unlocks, resource usage)
+5. Boss fight (difficulty, fairness)
+
+Testing Platforms:
+- Android device (mid-range)
+- PC (development machine)
+- iOS device (if available)
+
+Testing Methods:
+- Playtest sessions
+- Performance profiling
+- User feedback (if available)
+
+
+DEBUGGING TOOLS
+---------------
+
+Built-in:
+- Godot debugger
+- Remote debugging for mobile
+- Print statements / logging
+
+Custom:
+- Debug overlay (FPS, gravity state, resources)
+- Gravity visualization (direction arrows)
+- Collision shape visualization
+- Ability state display
+
+
+DEPLOYMENT
+==========
+
+PROTOTYPE DEPLOYMENT
+--------------------
+
+Android:
+- Build APK for testing
+- No Play Store submission (prototype)
+- Side-loading for testers
+
+PC:
+- Executable builds (Windows, Linux, Mac)
+- Zip distribution
+- No installer (prototype)
+
+iOS:
+- TestFlight for testing (requires Apple Developer account)
+- No App Store submission (prototype)
+
+
+BUILD CONFIGURATION
+-------------------
+
+Debug Build:
+- Debug symbols enabled
+- Console output
+- Debug overlay
+- Relaxed performance
+
+Release Build (Post-Prototype):
+- Optimizations enabled
+- No debug output
+- Compressed assets
+- Code signing
+
+
+RISKS & MITIGATION
+==================
+
+TECHNICAL RISKS
+---------------
+
+1. Mobile Performance
+   Risk: Game doesn't hit 60 FPS on target devices
+   Mitigation: Early performance testing, optimization focus, scalable graphics
+
+2. Gravity System Complexity
+   Risk: Modular gravity system becomes too complex
+   Mitigation: Incremental implementation, thorough testing, simplify if needed
+
+3. Mobile Controls
+   Risk: Touch controls feel bad for platformer
+   Mitigation: Multiple control schemes, extensive playtesting, iterate quickly
+
+4. Cross-Platform Issues
+   Risk: Bugs specific to mobile or PC
+   Mitigation: Test on all platforms regularly, use Godot's cross-platform features
+
+5. Scope Creep
+   Risk: Technical features expand beyond prototype
+   Mitigation: Strict adherence to prototype scope, defer features to post-prototype
+
+
+NEXT STEPS
+==========
+
+1. Decide on mobile control scheme
+2. Set up Godot project structure
+3. Implement core gravity system (modular)
+4. Create player controller with basic movement
+5. Implement input system (mobile + PC)
+6. Build first prototype level
+7. Performance testing on mobile device
+
+
+NOTES
+=====
+
+Technical architecture follows modular design philosophy:
+- All systems are independent and testable
+- Gravity system is highly configurable
+- Easy to enable/disable features for testing
+- Supports rapid iteration
+
+Mobile-first approach:
+- Performance targets based on mobile constraints
+- PC benefits from mobile optimization
+- Controls designed for touch, adapted for keyboard/gamepad
+
+Prototype focus:
+- Prove core mechanics work
+- Validate mobile controls
+- Test performance on target devices
+- Defer polish and features to post-prototype

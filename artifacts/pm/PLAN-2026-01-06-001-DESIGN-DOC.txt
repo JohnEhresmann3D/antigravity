@@ -1,0 +1,167 @@
+TASK PLAN
+=========
+
+Plan ID: PLAN-2026-01-06-001-DESIGN-DOC
+Created: 2026-01-06
+PM: Atlas PM Role
+Related Spec: SPEC-2026-01-06-001-DESIGN
+Status: Draft
+
+---
+
+OBJECTIVE
+---------
+
+Create comprehensive design documentation for Antigravity, a 2D platformer/Metroidvania
+hybrid game for mobile and PC, establishing all core mechanics, visual direction, and
+technical requirements needed to begin prototype development.
+
+
+SUCCESS CRITERIA
+----------------
+
+1. All open design questions from spec are answered and documented
+2. Game Design Document (GDD) exists with complete mechanics descriptions
+3. Visual design direction document exists with references and mood board
+4. Technical requirements document exists for mobile + PC deployment
+5. Prototype scope is clearly defined (what's in/out for initial version)
+
+
+CONSTRAINTS
+-----------
+
+- Maximum task size: small
+- Time constraint: Design phase should complete before implementation begins
+- Technical constraints: Must be feasible in Godot 4.5 for mobile + PC
+- Scope constraint: Prototype-focused, not full game design
+
+
+SCOPE
+-----
+
+IN SCOPE:
+- Answering all open design questions
+- Creating Game Design Document (GDD)
+- Creating Visual Design Direction document
+- Defining prototype scope
+- Documenting technical requirements
+- Creating reference/mood board materials
+
+OUT OF SCOPE:
+- Creating final game assets
+- Writing actual game code
+- Detailed level design (beyond prototype examples)
+- Full narrative/story development
+- Audio implementation details
+
+
+TASK BREAKDOWN
+--------------
+
+Task 1: Answer Core Mechanics Questions
+  Size: small
+  Dependencies: None
+  Acceptance Criteria:
+    - Antigravity mechanic implementation is defined
+    - Resource system is specified
+    - Ability unlock progression is defined
+  Verification:
+    - All mechanics questions from spec have documented answers
+
+Task 2: Define Mobile Control Scheme
+  Size: small
+  Dependencies: Task 1
+  Acceptance Criteria:
+    - Mobile control scheme is selected and documented
+    - PC control mapping is defined
+    - Controls support all core mechanics
+  Verification:
+    - Control scheme document exists with diagrams/mockups
+
+Task 3: Define World Structure and Prototype Scope
+  Size: small
+  Dependencies: Task 1
+  Acceptance Criteria:
+    - Number of worlds for prototype is defined
+    - World progression system is specified
+    - Prototype feature list is complete (in/out scope)
+  Verification:
+    - Prototype scope document clearly lists included features
+
+Task 4: Define Visual Direction and Tone
+  Size: small
+  Dependencies: None
+  Acceptance Criteria:
+    - Visual tone balance (Hollow Knight vs Mario) is decided
+    - Color palette direction is defined
+    - Art style guidelines exist
+  Verification:
+    - Visual direction document with references exists
+
+Task 5: Create Game Design Document (GDD)
+  Size: small
+  Dependencies: Tasks 1, 2, 3, 4
+  Acceptance Criteria:
+    - GDD includes all core mechanics
+    - GDD includes gameplay loop description
+    - GDD includes progression system
+    - GDD includes ability/powerup system
+  Verification:
+    - Complete GDD exists in artifacts/docs/
+
+Task 6: Create Visual Design Document
+  Size: small
+  Dependencies: Task 4
+  Acceptance Criteria:
+    - Visual references collected (Hollow Knight, Mario)
+    - Mood board created
+    - Color palette defined
+    - Art style guidelines documented
+  Verification:
+    - Visual design document with images/references exists
+
+Task 7: Document Technical Requirements
+  Size: small
+  Dependencies: Tasks 1, 2, 3
+  Acceptance Criteria:
+    - Mobile platform requirements documented
+    - PC platform requirements documented
+    - Godot 4.5 specific considerations noted
+    - Performance targets defined
+  Verification:
+    - Technical requirements document exists
+
+
+NEXT TASK
+---------
+
+Task ID: Task 1 - Answer Core Mechanics Questions
+Rationale: Must define core mechanics before other design work can proceed.
+This requires user input on the remaining open questions.
+
+
+ASSUMPTIONS
+-----------
+
+- User will provide answers to open questions in spec
+- Design decisions will be made collaboratively (PM asks, user decides)
+- Prototype scope will be intentionally small (1-2 worlds, core mechanics only)
+
+
+RISKS
+-----
+
+- Design paralysis: Too many options could delay decisions
+- Scope inflation: Metroidvania features could expand beyond prototype scope
+- Technical feasibility: Some design ideas may be difficult to implement
+- Mobile constraints: Control scheme may limit gameplay complexity
+
+
+NOTES
+-----
+
+This plan focuses on documentation and design definition, not implementation.
+All tasks are "small" to keep design work focused and iterative.
+
+After this plan completes, a separate plan will be created for prototype
+implementation following the Engineer workflow.

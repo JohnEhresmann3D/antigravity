@@ -1,0 +1,143 @@
+EXECUTION REPORT
+================
+
+Report ID: [ENG-YYYY-MM-DD-NNN]
+Created: [Date]
+Engineer: [Atlas ENG Role]
+Related Plan: [PLAN-ID]
+Task: [Task Name from Plan]
+
+---
+
+OBJECTIVE
+---------
+
+[Restate the task objective from the plan]
+
+
+EVIDENCE GATHERING
+------------------
+
+Files Inspected:
+- [file path] - [what was learned]
+- [file path] - [what was learned]
+
+Search Results:
+- Query: [search term]
+  Findings: [summary]
+
+Constraints Identified:
+- 
+- 
+
+Patterns Observed:
+- 
+- 
+
+
+HYPOTHESIS
+----------
+
+Primary Hypothesis:
+[What is likely needed or wrong, and why does this fit the evidence?]
+
+Alternative Hypothesis:
+[What else could explain the evidence?]
+
+
+CHANGES MADE
+------------
+
+File: [path/to/file]
+  Lines Modified: [line range]
+  Change Type: [add/modify/delete]
+  Rationale: [why this change]
+  Diff:
+    [show the actual diff]
+
+File: [path/to/file]
+  Lines Modified: [line range]
+  Change Type: [add/modify/delete]
+  Rationale: [why this change]
+  Diff:
+    [show the actual diff]
+
+
+COMMANDS EXECUTED
+-----------------
+
+Command: [exact command]
+  Purpose: [why it was run]
+  Exit Code: [0 = success]
+  Output Summary: [key findings]
+
+Command: [exact command]
+  Purpose: [why it was run]
+  Exit Code: [0 = success]
+  Output Summary: [key findings]
+
+
+VERIFICATION
+------------
+
+Tests Run:
+- [test command or description]
+  Result: [pass/fail]
+  Evidence: [output or observation]
+
+Build Status:
+- [build command]
+  Result: [success/failure]
+  Evidence: [output]
+
+Manual Checks:
+- [what was checked]
+  Result: [observation]
+
+
+ASSUMPTIONS ENCOUNTERED
+-----------------------
+
+[List any assumptions that had to be made, if any]
+
+- 
+- 
+
+
+STOP CONDITIONS
+---------------
+
+[Were any stop conditions encountered?]
+
+- [ ] Credentials/auth involved without secure plan
+- [ ] Security-critical code touched without validation
+- [ ] Diff grew beyond reasonable limits
+- [ ] Tool output contradicted assumptions
+- [ ] Missing required information
+
+Details: [if any boxes checked above]
+
+
+EXECUTION STATUS
+----------------
+
+Status: [Complete | Blocked | Needs Clarification]
+
+If Blocked or Needs Clarification:
+  Reason: 
+  Required Information: 
+
+
+NEXT STEPS
+----------
+
+[What should happen next?]
+
+- 
+- 
+
+
+NOTES
+-----
+
+[Additional observations or context]

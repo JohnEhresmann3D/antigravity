@@ -53,8 +53,15 @@ func _on_area_entered(area: Node) -> void:
 
 func _deal_damage_to_node(target: Node) -> void:
 	"""Deal damage to a target node"""
-	# Try to find HealthComponent
+	# Try to find HealthComponent by name first, then by type
 	var health: HealthComponent = target.get_node_or_null("HealthComponent")
+	
+	if not health:
+		# Try to find by iterating children
+		for child in target.get_children():
+			if child is HealthComponent:
+				health = child
+				break
 	
 	if health:
 		# Check if target is invincible
@@ -82,6 +89,9 @@ func _deal_damage_to_node(target: Node) -> void:
 		# Destroy parent if configured
 		if destroy_on_hit:
 			get_parent().queue_free()
+	else:
+		# No health component found, still emit signal
+		hit_target.emit(target, 0)
 
 
 func reset() -> void:

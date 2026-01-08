@@ -13,3 +13,11 @@ config_version=5
 config/name="Antigravity"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GravityManager="*res://scripts/autoload/gravity_manager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")

@@ -51,6 +51,11 @@ func set_gravity_strength(strength: float) -> void:
 	print("Gravity strength changed to: ", gravity_strength)
 
 
+## Get current gravity strength
+func get_gravity_strength() -> float:
+	return gravity_strength
+
+
 ## Rotate gravity direction by angle (in radians)
 func rotate_gravity(angle: float) -> void:
 	gravity_direction = gravity_direction.rotated(angle)

@@ -67,11 +67,32 @@ antigravity/
 3. **Run the game**
    - Press F5 or click the Play button
 
+## 🧪 Testing
+
+This project follows software development best practices with automated testing using **GUT (Godot Unit Test)**.
+
+[![Tests](https://github.com/JohnEhresmann3D/antigravity/actions/workflows/run-tests.yml/badge.svg)](https://github.com/JohnEhresmann3D/antigravity/actions/workflows/run-tests.yml)
+
+- **78 unit tests** covering core components
+- **~85% code coverage** for critical systems
+- **CI/CD** via GitHub Actions (automated testing on every push)
+
+See [Testing Guide](docs/TESTING_GUIDE.md) for details on running and writing tests.
+
+---
+
 ## 📖 Documentation
 
+### Design Documents
+- [Updated Game Design Document](docs/GDD_UPDATED_2026-01-07.md) - Complete game design with 6-8 level structure
+- [Level 1 Paper Design](docs/LEVEL_1_DESIGN.md) - Detailed design for tutorial level
+- [Scope Definition](docs/SCOPE_DEFINITION.md) - Complete feature scope and timeline
+- [Design Session Summary](docs/DESIGN_SESSION_SUMMARY.md) - Overview of design decisions
+
+### Setup Guides
 - [Animation Setup Guide](docs/setup/ANIMATION_SETUP_GUIDE.md)
 - [Component Guide](scripts/components/COMPONENT_GUIDE.md)
-- [Quick Reference](docs/setup/QUICK_ANIMATION_REFERENCE.md)
+- [Quick Reference](scripts/QUICK_REFERENCE.md)
 
 ## 🎨 Assets
 
@@ -82,17 +103,37 @@ All sprites are custom-designed with a 90s cartoon aesthetic:
 
 ## 🔧 Development Status
 
+### Phase 1: Core Systems (80% Complete)
 - [x] Core gravity system
-- [x] Player controller
-- [x] Component library
-- [x] Enemy AI (3 types)
-- [x] Animation system
-- [ ] Level design (0/8)
-- [ ] UI/HUD
+- [x] Player controller with advanced features
+- [x] Component library (8 components)
+- [x] Enemy AI (3 types: Flyer, Turret, Antigrav Orb)
+- [x] Animation system (8 states)
+- [x] Projectile system
+- [ ] Resource collection system
+- [ ] Ability unlock progression
+
+### Phase 2: Level Design (In Progress)
+- [ ] Level 1: Awakening (Tutorial) - Paper design complete ✅
+- [ ] Level 2: Gravity Training
+- [ ] Level 3: The Facility
+- [ ] Level 4: Antigrav Labs
+- [ ] Level 5: The Depths (Mid-game boss)
+- [ ] Level 6: Outer Hull
+- [ ] Level 7: Core Reactor (Optional)
+- [ ] Level 8: The Singularity (Optional)
+
+### Phase 3: Systems & Polish
+- [ ] UI/HUD system
 - [ ] Sound effects
-- [ ] Music
-- [ ] Power-ups
-- [ ] Boss battles
+- [ ] Music (5-6 tracks)
+- [ ] Powerup system (4 types)
+- [ ] Boss battles (2-3)
+- [ ] Save/load system
+
+**Current Focus**: Level 1 implementation  
+**Target**: 6-8 complete levels  
+**Timeline**: 3-6 months
 
 ## 🤝 Contributing
 

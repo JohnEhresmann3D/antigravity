@@ -35,17 +35,17 @@ func set_target(target: Vector2) -> void:
 	target_velocity = target
 
 
-func set_target_direction(direction: Vector2, use_speed: bool = true) -> void:
+func set_target_direction(direction: Vector2, is_running: bool = false) -> void:
 	"""Set target velocity from a direction vector"""
-	if use_speed:
-		target_velocity = direction.normalized() * speed
+	if is_running:
+		target_velocity = direction.normalized() * max_speed
 	else:
-		target_velocity = direction
+		target_velocity = direction.normalized() * speed
 
 
-func apply_friction(delta: float, use_air_friction: bool = false) -> void:
+func apply_friction(delta: float, is_grounded: bool = true) -> void:
 	"""Apply friction to slow down velocity"""
-	var friction_amount = air_friction if use_air_friction else friction
+	var friction_amount = friction if is_grounded else air_friction
 	velocity = velocity.move_toward(Vector2.ZERO, friction_amount * delta)
 	velocity_changed.emit(velocity)
 
@@ -66,6 +66,17 @@ func stop() -> void:
 	velocity = Vector2.ZERO
 	target_velocity = Vector2.ZERO
 	velocity_changed.emit(velocity)
+
+
+func set_velocity(new_velocity: Vector2) -> void:
+	"""Set velocity directly"""
+	velocity = new_velocity
+	velocity_changed.emit(velocity)
+
+
+func get_velocity() -> Vector2:
+	"""Get current velocity"""
+	return velocity
 
 
 func get_speed() -> float:

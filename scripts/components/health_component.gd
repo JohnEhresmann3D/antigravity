@@ -35,6 +35,10 @@ func take_damage(amount: int, attacker: Node = null) -> void:
 	if not is_alive or invincible or invincibility_timer > 0:
 		return
 	
+	# Reject negative damage
+	if amount <= 0:
+		return
+	
 	var actual_damage = min(amount, current_health)
 	current_health -= actual_damage
 	
@@ -51,16 +55,22 @@ func heal(amount: int) -> void:
 	if not is_alive:
 		return
 	
-	var actual_heal = min(amount, max_health - current_health)
-	current_health += actual_heal
+	# Reject negative healing
+	if amount <= 0:
+		return
 	
-	healed.emit(actual_heal)
-	health_changed.emit(current_health, max_health)
+	var actual_heal = min(amount, max_health - current_health)
+	
+	# Only emit signals if actually healed
+	if actual_heal > 0:
+		current_health += actual_heal
+		healed.emit(actual_heal)
+		health_changed.emit(current_health, max_health)
 
 
 func set_invincible(duration: float) -> void:
 	"""Make entity invincible for a duration"""
-	invincibility_timer = duration
+	invincibility_timer = max(invincibility_timer, duration)
 
 
 func is_invincible() -> bool:
@@ -92,4 +102,15 @@ func revive(health_amount: int = -1) -> void:
 		current_health = max_health
 	else:
 		current_health = clamp(health_amount, 1, max_health)
+	health_changed.emit(current_health, max_health)
+
+
+func set_max_health(new_max: int) -> void:
+	"""Set maximum health and scale current health proportionally"""
+	if new_max <= 0:
+		return
+	
+	var health_percent = get_health_percent()
+	max_health = new_max
+	current_health = int(health_percent * max_health)
 	health_changed.emit(current_health, max_health)
