@@ -1,33 +1,57 @@
-[gd_scene load_steps=12 format=3 uid="uid://d4b5fqux8uqg5"]
+[gd_scene load_steps=18 format=3 uid="uid://d4b5fqux8uqg5"]
 
 [ext_resource type="Script" uid="uid://w0fetbi7cr5s" path="res://scripts/enemies/antigrav_orb.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://qpqq35drm2w2" path="res://assets/sprites/enemies/antigrav_orb.png" id="2_sprite"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ya5g"]
 atlas = ExtResource("2_sprite")
-region = Rect2(2, 44, 168, 168)
+region = Rect2(0, 179, 170, 168)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_edryq"]
 atlas = ExtResource("2_sprite")
-region = Rect2(338, 44, 168, 168)
+region = Rect2(170, 179, 170, 168)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nw655"]
 atlas = ExtResource("2_sprite")
-region = Rect2(170, 44, 168, 168)
+region = Rect2(340, 179, 170, 168)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3o0tx"]
 atlas = ExtResource("2_sprite")
-region = Rect2(506, 44, 168, 168)
+region = Rect2(510, 179, 170, 168)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uats4"]
 atlas = ExtResource("2_sprite")
-region = Rect2(674, 44, 168, 168)
+region = Rect2(680, 179, 170, 168)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b3dn"]
 atlas = ExtResource("2_sprite")
-region = Rect2(842, 44, 168, 168)
+region = Rect2(850, 179, 170, 168)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rofco"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rofco"]
+atlas = ExtResource("2_sprite")
+region = Rect2(0, 11, 170, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w385"]
+atlas = ExtResource("2_sprite")
+region = Rect2(170, 11, 170, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lp11"]
+atlas = ExtResource("2_sprite")
+region = Rect2(340, 11, 170, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mekyy"]
+atlas = ExtResource("2_sprite")
+region = Rect2(510, 11, 170, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_podd4"]
+atlas = ExtResource("2_sprite")
+region = Rect2(680, 11, 170, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj23k"]
+atlas = ExtResource("2_sprite")
+region = Rect2(850, 11, 170, 168)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ya5g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -49,13 +73,31 @@ animations = [{
 "texture": SubResource("AtlasTexture_7b3dn")
 }],
 "loop": true,
+"name": &"Gravity Flip",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rofco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w385")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lp11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mekyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_podd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj23k")
+}],
+"loop": true,
 "name": &"Idle",
 "speed": 8.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
@@ -70,9 +112,9 @@ script = ExtResource("1_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_rofco")
+sprite_frames = SubResource("SpriteFrames_5ya5g")
 animation = &"Idle"
-frame_progress = 0.11488283
+frame_progress = 0.47340932
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_body")
@@ -90,6 +132,10 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_body")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

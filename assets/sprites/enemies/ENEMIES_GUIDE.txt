@@ -423,45 +423,45 @@ var player: Node2D = null
 var state = "idle"  # idle, alert, chase
 
 func _ready():
-    $AnimatedSprite2D.play("idle")
+	$AnimatedSprite2D.play("idle")
 
 func _physics_process(delta):
-    match state:
-        "idle":
-            patrol()
-        "chase":
-            chase_player()
-    
-    move_and_slide()
+	match state:
+		"idle":
+			patrol()
+		"chase":
+			chase_player()
+	
+	move_and_slide()
 
 func patrol():
-    # Simple back-and-forth patrol
-    velocity.x = speed if not $RayCast2D.is_colliding() else -speed
-    $AnimatedSprite2D.play("flying")
+	# Simple back-and-forth patrol
+	velocity.x = speed if not $RayCast2D.is_colliding() else -speed
+	$AnimatedSprite2D.play("flying")
 
 func chase_player():
-    if player:
-        var direction = (player.global_position - global_position).normalized()
-        velocity = direction * speed * 1.5
-        $AnimatedSprite2D.play("flying")
+	if player:
+		var direction = (player.global_position - global_position).normalized()
+		velocity = direction * speed * 1.5
+		$AnimatedSprite2D.play("flying")
 
 func _on_detection_area_body_entered(body):
-    if body.is_in_group("player"):
-        player = body
-        state = "chase"
-        $AnimatedSprite2D.play("alert")
-        await $AnimatedSprite2D.animation_finished
-        state = "chase"
+	if body.is_in_group("player"):
+		player = body
+		state = "chase"
+		$AnimatedSprite2D.play("alert")
+		await $AnimatedSprite2D.animation_finished
+		state = "chase"
 
 func take_damage(amount):
-    health -= amount
-    $AnimatedSprite2D.play("damaged")
-    if health <= 0:
-        die()
+	health -= amount
+	$AnimatedSprite2D.play("damaged")
+	if health <= 0:
+		die()
 
 func die():
-    # Drop resources, play death effect
-    queue_free()
+	# Drop resources, play death effect
+	queue_free()
 ```
 
 TURRET EXAMPLE:
@@ -477,30 +477,30 @@ var player: Node2D = null
 var can_fire = true
 
 func _ready():
-    $AnimatedSprite2D.play("idle")
-    $FireTimer.wait_time = fire_rate
+	$AnimatedSprite2D.play("idle")
+	$FireTimer.wait_time = fire_rate
 
 func _process(delta):
-    if player and can_fire:
-        aim_at_player()
+	if player and can_fire:
+		aim_at_player()
 
 func aim_at_player():
-    $AnimatedSprite2D.play("aiming")
-    # Rotate barrel toward player
-    var angle = global_position.angle_to_point(player.global_position)
-    rotation = angle
+	$AnimatedSprite2D.play("aiming")
+	# Rotate barrel toward player
+	var angle = global_position.angle_to_point(player.global_position)
+	rotation = angle
 
 func fire():
-    $AnimatedSprite2D.play("firing")
-    var projectile = projectile_scene.instantiate()
-    get_parent().add_child(projectile)
-    projectile.global_position = $Barrel.global_position
-    projectile.direction = Vector2.RIGHT.rotated(rotation)
-    can_fire = false
-    $FireTimer.start()
+	$AnimatedSprite2D.play("firing")
+	var projectile = projectile_scene.instantiate()
+	get_parent().add_child(projectile)
+	projectile.global_position = $Barrel.global_position
+	projectile.direction = Vector2.RIGHT.rotated(rotation)
+	can_fire = false
+	$FireTimer.start()
 
 func _on_fire_timer_timeout():
-    can_fire = true
+	can_fire = true
 ```
 
 PROJECTILE EXAMPLE:
@@ -512,19 +512,19 @@ extends Area2D
 var direction = Vector2.RIGHT
 
 func _ready():
-    $AnimatedSprite2D.play("energy_ball")
+	$AnimatedSprite2D.play("energy_ball")
 
 func _physics_process(delta):
-    position += direction * speed * delta
+	position += direction * speed * delta
 
 func _on_body_entered(body):
-    if body.is_in_group("player"):
-        body.take_damage(1)
-    
-    # Play impact animation
-    $AnimatedSprite2D.play("impact")
-    await $AnimatedSprite2D.animation_finished
-    queue_free()
+	if body.is_in_group("player"):
+		body.take_damage(1)
+	
+	# Play impact animation
+	$AnimatedSprite2D.play("impact")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()
 ```
 
 

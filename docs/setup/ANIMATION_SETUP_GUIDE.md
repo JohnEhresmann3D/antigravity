@@ -171,6 +171,8 @@ You'll see the SpriteFrames editor at the bottom. Now add each animation:
 2. Select `AnimatedSprite2D` node
 3. Create new SpriteFrames resource
 
+> **Note**: The antigrav orb sprite sheet has been optimized for grid alignment. All visual effects (sparkles, energy bursts, trails) are contained within the 32x32 frame boundaries, making it easy to select frames in the grid editor.
+
 ### Animations
 
 **Sprite Sheet**: `antigrav_orb.png` (32x32 frames)

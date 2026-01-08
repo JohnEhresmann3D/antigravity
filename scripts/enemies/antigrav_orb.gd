@@ -20,7 +20,7 @@ var flip_cooldown: float = 0.0
 
 func _ready():
 	add_to_group("enemies")
-	animated_sprite.play("idle")
+	animated_sprite.play("Idle")
 	
 	# Randomize initial patrol pattern
 	patrol_pattern = randi() % 3
@@ -41,7 +41,7 @@ func _physics_process(delta):
 	
 	match state:
 		"idle":
-			animated_sprite.play("idle")
+			animated_sprite.play("Idle")
 		"patrol":
 			_patrol(delta)
 		"gravity_flip":
@@ -56,8 +56,15 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	# Subtle rotation for visual effect
-	rotation += delta * 0.5
+	# Whimsical floating animation when idle
+	if state == "idle":
+		var time = Time.get_ticks_msec() * 0.001
+		# Gentle vertical bobbing
+		position.y += sin(time * 2.0) * 0.3
+		# Subtle horizontal sway
+		position.x += cos(time * 1.5) * 0.2
+		# Gentle rotation that changes direction
+		rotation = sin(time * 0.8) * 0.15
 
 
 func _patrol(delta):
@@ -79,15 +86,42 @@ func _patrol(delta):
 
 
 func _perform_gravity_flip():
-	"""Perform a gravity flip to show off the mechanic"""
+	"""Perform a gravity flip with dramatic motion"""
 	state = "gravity_flip"
 	animated_sprite.play("gravity_flip")
 	flip_cooldown = 3.0
 	
-	await animated_sprite.animation_finished
+	# Store original values
+	var original_scale = animated_sprite.scale
+	var original_rotation = rotation
 	
-	# Flip the sprite
+	# Phase 1: Charge up (0.3 seconds)
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(animated_sprite, "scale", original_scale * 1.2, 0.3)
+	tween.tween_property(self, "position:y", position.y - 10, 0.3).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	
+	# Phase 2: Spin flip (0.4 seconds) - dramatic 360° spin with position change
+	tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(self, "rotation", original_rotation + PI * 2, 0.4).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "position:y", position.y + 20, 0.4).set_ease(Tween.EASE_IN_OUT)
+	# Pulse the scale during spin
+	tween.tween_property(animated_sprite, "scale", original_scale * 0.8, 0.2).set_ease(Tween.EASE_IN)
+	await get_tree().create_timer(0.2).timeout
+	tween.tween_property(animated_sprite, "scale", original_scale * 1.1, 0.2).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	
+	# Flip the sprite vertically
 	animated_sprite.flip_v = !animated_sprite.flip_v
+	
+	# Phase 3: Settle (0.3 seconds) - gentle wobble
+	tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(animated_sprite, "scale", original_scale, 0.3).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "rotation", original_rotation, 0.3).set_ease(Tween.EASE_OUT)
+	await tween.finished
 	
 	state = "patrol"
 
