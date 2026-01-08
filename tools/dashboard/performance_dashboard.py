@@ -19,7 +19,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 REPORTS_DIR = os.path.join(PROJECT_ROOT, "tools", "dashboard", "reports")
-ANALYZER_PATH = os.path.join(PROJECT_ROOT, "tools", "analysis", "performance_analyzer.py")
+ANALYZER_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, "tools", "analysis", "performance_analyzer.py"))
 
 # Global state
 analysis_running = False
