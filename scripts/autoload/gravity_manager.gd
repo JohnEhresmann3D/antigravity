@@ -19,9 +19,9 @@ var debug_mode: bool = false
 
 
 func _ready() -> void:
-	print("GravityManager initialized")
-	print("Base gravity: ", BASE_GRAVITY)
-	print("Initial direction: ", gravity_direction)
+	print_debug("GravityManager initialized")
+	print_debug("Base gravity: ", BASE_GRAVITY)
+	print_debug("Initial direction: ", gravity_direction)
 
 
 ## Get the current gravity vector (direction * strength * base)
@@ -34,21 +34,21 @@ func set_gravity_direction(direction: Vector2) -> void:
 	if direction.length() > 0:
 		gravity_direction = direction.normalized()
 		gravity_changed.emit(gravity_direction)
-		print("Gravity direction changed to: ", gravity_direction)
+		print_debug("Gravity direction changed to: ", gravity_direction)
 
 
 ## Flip gravity 180 degrees
 func flip_gravity() -> void:
 	gravity_direction = - gravity_direction
 	gravity_changed.emit(gravity_direction)
-	print("Gravity flipped to: ", gravity_direction)
+	print_debug("Gravity flipped to: ", gravity_direction)
 
 
 ## Set gravity strength multiplier
 func set_gravity_strength(strength: float) -> void:
 	gravity_strength = clamp(strength, 0.0, 5.0)
 	gravity_strength_changed.emit(gravity_strength)
-	print("Gravity strength changed to: ", gravity_strength)
+	print_debug("Gravity strength changed to: ", gravity_strength)
 
 
 ## Get current gravity strength
@@ -81,7 +81,7 @@ func set_cardinal_direction(direction: String) -> void:
 func reset_gravity() -> void:
 	set_gravity_direction(Vector2.DOWN)
 	set_gravity_strength(1.0)
-	print("Gravity reset to default")
+	print_debug("Gravity reset to default")
 
 
 ## Debug function to adjust gravity at runtime
