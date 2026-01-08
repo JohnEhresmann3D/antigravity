@@ -17,8 +17,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'performance-dashboard-secret'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-PROJECT_ROOT = os.getcwd()
-REPORTS_DIR = os.path.join(PROJECT_ROOT, "reports")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "tools", "dashboard", "reports")
+ANALYZER_PATH = os.path.join(PROJECT_ROOT, "tools", "analysis", "performance_analyzer.py")
 
 # Global state
 analysis_running = False
@@ -93,7 +94,7 @@ def run_analysis():
         
         # Run the analyzer
         result = subprocess.run(
-            ['python', 'performance_analyzer.py'],
+            ['python', ANALYZER_PATH],
             cwd=PROJECT_ROOT,
             capture_output=True,
             text=True

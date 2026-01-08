@@ -16,7 +16,7 @@ from datetime import datetime
 
 # --- Configuration ---
 PROJECT_ROOT = os.getcwd()
-REPORTS_DIR = os.path.join(PROJECT_ROOT, "reports")
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "tools", "dashboard", "reports")
 
 # Create reports directory if it doesn't exist
 if not os.path.exists(REPORTS_DIR):
