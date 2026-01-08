@@ -16,7 +16,16 @@ from datetime import datetime
 
 # --- Configuration ---
 PROJECT_ROOT = os.getcwd()
-OUTPUT_FILE = "performance_report.html"
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "reports")
+
+# Create reports directory if it doesn't exist
+if not os.path.exists(REPORTS_DIR):
+    os.makedirs(REPORTS_DIR)
+
+# Generate timestamped filename
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+OUTPUT_FILE = os.path.join(REPORTS_DIR, f"performance_report_{timestamp}.html")
+LATEST_LINK = os.path.join(PROJECT_ROOT, "performance_report.html")
 
 # --- Analysis Rules ---
 EXPENSIVE_CALLS = [
@@ -95,6 +104,32 @@ HTML_TEMPLATE = """
             white-space: pre;
         }
         .highlight { color: #fff; font-weight: bold; background: rgba(255, 82, 82, 0.2); }
+        
+        /* Filter controls */
+        .filter-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            background: #444;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { background: #555; }
+        .filter-btn.active { border-color: var(--accent); background: #555; }
+        .filter-btn.high { border-color: var(--danger); }
+        .filter-btn.medium { border-color: var(--warning); }
+        .filter-btn.low { border-color: var(--accent); }
+        .file-item.hidden { display: none; }
     </style>
 </head>
 <body>
@@ -120,6 +155,34 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
+        <div class="filter-controls">
+            <span style="font-weight: bold;">Filter by Severity:</span>
+            <button class="filter-btn" onclick="filterBySeverity('all')" id="filter-all">All Issues</button>
+            <button class="filter-btn high" onclick="filterBySeverity('high')" id="filter-high">High Priority</button>
+            <button class="filter-btn medium" onclick="filterBySeverity('medium')" id="filter-medium">Medium Priority</button>
+            <button class="filter-btn low" onclick="filterBySeverity('low')" id="filter-low">Low Priority</button>
+            <span id="filter-status" style="margin-left: auto; color: #aaa;"></span>
+        </div>
+        
+        <div class="filter-controls">
+            <span style="font-weight: bold;">Filter by Type:</span>
+            <label style="cursor: pointer; padding: 5px 10px; background: #444; border-radius: 4px;">
+                <input type="checkbox" id="type-performance" checked onchange="filterByType()"> Performance
+            </label>
+            <label style="cursor: pointer; padding: 5px 10px; background: #444; border-radius: 4px;">
+                <input type="checkbox" id="type-typing" checked onchange="filterByType()"> Typing
+            </label>
+            <label style="cursor: pointer; padding: 5px 10px; background: #444; border-radius: 4px;">
+                <input type="checkbox" id="type-cleanup" checked onchange="filterByType()"> Cleanup
+            </label>
+            <label style="cursor: pointer; padding: 5px 10px; background: #444; border-radius: 4px;">
+                <input type="checkbox" id="type-complexity" checked onchange="filterByType()"> Complexity
+            </label>
+            <button class="filter-btn" onclick="toggleAllTypes(false)" style="margin-left: 10px;">Hide All</button>
+            <button class="filter-btn" onclick="toggleAllTypes(true)">Show All</button>
+            <span id="type-status" style="margin-left: auto; color: #aaa;"></span>
+        </div>
+        
         <h2>Detailed File Analysis</h2>
         <div id="file-list" class="file-list"></div>
     </div>
@@ -137,9 +200,9 @@ HTML_TEMPLATE = """
         scoreEl.textContent = data.overall_score;
         scoreEl.className = `score ${data.overall_score >= 80 ? 'good' : (data.overall_score >= 50 ? 'medium' : 'bad')}`;
 
-        // Chart
+        // Chart with click handler
         const ctx = document.getElementById('issueChart').getContext('2d');
-        new Chart(ctx, {
+        const chart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['High Priority', 'Medium Priority', 'Low Priority'],
@@ -149,7 +212,26 @@ HTML_TEMPLATE = """
                     borderWidth: 0
                 }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#bbb' } } } }
+            options: { 
+                responsive: true, 
+                plugins: { 
+                    legend: { position: 'bottom', labels: { color: '#bbb' } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' issues';
+                            }
+                        }
+                    }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const severity = ['high', 'medium', 'low'][index];
+                        filterBySeverity(severity);
+                    }
+                }
+            }
         });
 
         // --- Render Files ---
@@ -163,6 +245,11 @@ HTML_TEMPLATE = """
 
             const item = document.createElement('div');
             item.className = 'file-item';
+            item.dataset.file = file.path;
+            
+            // Store severity info for filtering
+            const severities = new Set(file.issues.map(i => i.severity));
+            item.dataset.severities = Array.from(severities).join(',');
             
             const header = document.createElement('div');
             header.className = 'file-header';
@@ -180,6 +267,8 @@ HTML_TEMPLATE = """
             file.issues.forEach(issue => {
                 const div = document.createElement('div');
                 div.className = `issue ${issue.severity}`;
+                div.dataset.severity = issue.severity;
+                div.dataset.type = issue.type;
                 div.innerHTML = `
                     <div>
                         <span class="issue-line">Line ${issue.line}</span>
@@ -195,6 +284,95 @@ HTML_TEMPLATE = """
             item.appendChild(details);
             listEl.appendChild(item);
         });
+        
+        // --- Filter Functionality ---
+        let currentFilter = 'all';
+        let enabledTypes = new Set(['Performance', 'Typing', 'Cleanup', 'Complexity']);
+        
+        function filterBySeverity(severity) {
+            currentFilter = severity;
+            
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`filter-${severity}`).classList.add('active');
+            
+            applyFilters();
+        }
+        
+        function filterByType() {
+            // Update enabled types based on checkboxes
+            enabledTypes.clear();
+            if (document.getElementById('type-performance').checked) enabledTypes.add('Performance');
+            if (document.getElementById('type-typing').checked) enabledTypes.add('Typing');
+            if (document.getElementById('type-cleanup').checked) enabledTypes.add('Cleanup');
+            if (document.getElementById('type-complexity').checked) enabledTypes.add('Complexity');
+            
+            applyFilters();
+        }
+        
+        function toggleAllTypes(show) {
+            document.getElementById('type-performance').checked = show;
+            document.getElementById('type-typing').checked = show;
+            document.getElementById('type-cleanup').checked = show;
+            document.getElementById('type-complexity').checked = show;
+            filterByType();
+        }
+        
+        function applyFilters() {
+            const fileItems = document.querySelectorAll('.file-item');
+            let visibleCount = 0;
+            let visibleIssueCount = 0;
+            
+            fileItems.forEach(item => {
+                const details = item.querySelector('.file-details');
+                const issues = details.querySelectorAll('.issue');
+                let hasVisibleIssue = false;
+                
+                issues.forEach(issue => {
+                    const matchesSeverity = currentFilter === 'all' || issue.dataset.severity === currentFilter;
+                    const matchesType = enabledTypes.has(issue.dataset.type);
+                    
+                    if (matchesSeverity && matchesType) {
+                        issue.style.display = '';
+                        hasVisibleIssue = true;
+                        visibleIssueCount++;
+                    } else {
+                        issue.style.display = 'none';
+                    }
+                });
+                
+                // Hide file if no visible issues
+                if (hasVisibleIssue) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            // Update status
+            const statusEl = document.getElementById('filter-status');
+            if (currentFilter === 'all') {
+                statusEl.textContent = `Showing ${visibleCount} files with ${visibleIssueCount} issues`;
+            } else {
+                const severityName = currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1);
+                statusEl.textContent = `Showing ${visibleCount} files with ${visibleIssueCount} ${severityName} priority issues`;
+            }
+            
+            // Update type status
+            const typeStatusEl = document.getElementById('type-status');
+            const typeCount = enabledTypes.size;
+            if (typeCount === 4) {
+                typeStatusEl.textContent = 'All types shown';
+            } else if (typeCount === 0) {
+                typeStatusEl.textContent = 'No types selected';
+            } else {
+                typeStatusEl.textContent = `${typeCount} type(s) shown`;
+            }
+        }
+        
+        // Initialize with all issues shown
+        filterBySeverity('all');
     </script>
 </body>
 </html>
@@ -303,11 +481,85 @@ class PerformanceAnalyzer:
                         "line": line_num,
                         "type": "Typing",
                         "severity": "medium",
-                        "message": "Missing static type hint. Adding types improves performance.",
+                        "message": "Missing static type hint on variable. Adding types improves performance.",
+                        "snippet": self._get_snippet(lines, i, line)
+                    })
+            
+            # 5. Missing type hints on function parameters/returns (Ollama Recommendation)
+            if stripped.startswith('func '):
+                # Check for missing return type
+                if '->' not in line and not stripped.endswith('void:'):
+                    # Allow constructors and special functions without return types
+                    if not any(x in line for x in ['_init', '_ready', '_process', '_physics_process', '_input']):
+                        file_issues.append({
+                            "line": line_num,
+                            "type": "Typing",
+                            "severity": "medium",
+                            "message": "Missing return type hint on function. Use '-> Type:' for better performance.",
+                            "snippet": self._get_snippet(lines, i, line)
+                        })
+                
+                # Check for untyped parameters
+                if '(' in line and ')' in line:
+                    params_section = line[line.index('('):line.index(')')+1]
+                    # Simple check: if there's a parameter without ':'
+                    if ',' in params_section or ('(' in params_section and ')' in params_section):
+                        # Has parameters, check if typed
+                        params = params_section.strip('()').split(',')
+                        for param in params:
+                            param = param.strip()
+                            if param and ':' not in param and '=' not in param and param != '':
+                                file_issues.append({
+                                    "line": line_num,
+                                    "type": "Typing",
+                                    "severity": "medium",
+                                    "message": f"Missing type hint on parameter. Use 'param: Type' syntax.",
+                                    "snippet": self._get_snippet(lines, i, line)
+                                })
+                                break  # Only report once per function
+            
+            # 6. Costly memory operations in loops (Ollama Recommendation)
+            # Detect array/dictionary allocations inside loops
+            if any(keyword in stripped for keyword in ['for ', 'while ']):
+                # Mark that we're in a loop
+                pass
+            
+            # Check for array/dict creation patterns
+            if in_process_func or any(keyword in content[max(0, i-10):i] for keyword in ['for ', 'while ']):
+                if re.search(r'\[\s*\]|\{\s*\}|Array\.new\(\)|Dictionary\.new\(\)', line):
+                    file_issues.append({
+                        "line": line_num,
+                        "type": "Performance",
+                        "severity": "high",
+                        "message": "Memory allocation detected in hot path. Consider pre-allocating or moving outside loop.",
+                        "snippet": self._get_snippet(lines, i, line)
+                    })
+            
+            # 7. Redundant computations (Ollama Recommendation)
+            # Detect repeated expensive calls that could be cached
+            if in_process_func and indent > process_indent:
+                # Look for repeated method calls on same object
+                if '.get_' in line or '.calculate_' in line or '.find_' in line:
+                    file_issues.append({
+                        "line": line_num,
+                        "type": "Performance",
+                        "severity": "medium",
+                        "message": "Potentially redundant computation in process loop. Consider caching result.",
                         "snippet": self._get_snippet(lines, i, line)
                     })
 
-        score = max(0, 100 - (len(file_issues) * 5)) # Simple scoring
+        # Severity-weighted scoring
+        # High severity issues are more impactful than medium/low
+        high_count = len([i for i in file_issues if i['severity'] == 'high'])
+        medium_count = len([i for i in file_issues if i['severity'] == 'medium'])
+        low_count = len([i for i in file_issues if i['severity'] == 'low'])
+        
+        # Weighted penalty: high=15, medium=2, low=0.5
+        # This ensures high-severity issues are heavily penalized
+        # while type hints (medium) don't automatically cause 0 scores
+        penalty = (high_count * 15) + (medium_count * 2) + (low_count * 0.5)
+        score = max(0, 100 - penalty)
+        
         return {
             "path": str(path.relative_to(self.root_dir)),
             "score": score,
@@ -353,14 +605,26 @@ def main():
         json_data = json.dumps(data)
         html_content = HTML_TEMPLATE.replace("/*DATA_PLACEHOLDER*/", json_data)
         
+        # Save timestamped report
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             f.write(html_content)
+        
+        # Create/update latest link (copy for Windows compatibility)
+        import shutil
+        try:
+            if os.path.exists(LATEST_LINK):
+                os.remove(LATEST_LINK)
+            shutil.copy2(OUTPUT_FILE, LATEST_LINK)
+        except Exception as e:
+            print(f"Warning: Could not create latest link: {e}")
             
         print("\n" + "="*60)
         print(f"Analysis Complete!")
         print(f"Files Scanned: {data['total_files']}")
         print(f"Total Issues: {data['total_issues']}")
         print(f"Report saved to: {os.path.abspath(OUTPUT_FILE)}")
+        print(f"Latest copy at: {os.path.abspath(LATEST_LINK)}")
+        print(f"All reports in: {os.path.abspath(REPORTS_DIR)}")
         print("="*60)
         
     except Exception as e:

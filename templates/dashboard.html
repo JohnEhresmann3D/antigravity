@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard - Antigravity</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: #2d2d2d;
+            padding: 15px 30px;
+            border-bottom: 2px solid #47a6ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #47a6ff;
+            font-size: 24px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #47a6ff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #3a8edb;
+        }
+
+        .btn-primary:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-secondary {
+            background: #444;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #555;
+        }
+
+        /* Status */
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #333;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2cc990;
+        }
+
+        .status-dot.running {
+            background: #ffb142;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Summary Cards */
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px 30px;
+            background: #252525;
+        }
+
+        .card {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #47a6ff;
+        }
+
+        .card.danger {
+            border-left-color: #ff5252;
+        }
+
+        .card.warning {
+            border-left-color: #ffb142;
+        }
+
+        .card.success {
+            border-left-color: #2cc990;
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: #aaa;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Report Container */
+        .report-container {
+            flex: 1;
+            padding: 20px 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .report-header h2 {
+            color: #47a6ff;
+        }
+
+        select {
+            padding: 8px 12px;
+            background: #2d2d2d;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        iframe {
+            flex: 1;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .no-reports {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            color: #888;
+        }
+
+        .no-reports h3 {
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🚀 Performance Dashboard</h1>
+        <div class="header-controls">
+            <div class="status" id="status">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">Ready</span>
+            </div>
+            <button class="btn btn-primary" id="run-btn" onclick="runAnalysis()">
+                ▶ Run Analysis
+            </button>
+            <button class="btn btn-secondary" onclick="location.reload()">
+                🔄 Refresh
+            </button>
+        </div>
+    </div>
+
+    {% if summary %}
+    <div class="summary">
+        <div
+            class="card {% if summary.overall_score >= 80 %}success{% elif summary.overall_score >= 50 %}warning{% else %}danger{% endif %}">
+            <div class="card-label">Overall Health</div>
+            <div class="card-value">{{ summary.overall_score }}</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Files Scanned</div>
+            <div class="card-value">{{ summary.total_files }}</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Total Issues</div>
+            <div class="card-value">{{ summary.total_issues }}</div>
+        </div>
+        <div class="card danger">
+            <div class="card-label">High Priority</div>
+            <div class="card-value">{{ summary.high }}</div>
+        </div>
+        <div class="card warning">
+            <div class="card-label">Medium Priority</div>
+            <div class="card-value">{{ summary.medium }}</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Low Priority</div>
+            <div class="card-value">{{ summary.low }}</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="report-container">
+        {% if latest_report %}
+        <div class="report-header">
+            <h2>Latest Report</h2>
+            <select id="report-select" onchange="loadReport(this.value)">
+                {% for report in all_reports %}
+                <option value="{{ report.filename }}" {% if loop.first %}selected{% endif %}>
+                    {{ report.timestamp }} ({{ report.modified }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <iframe id="report-frame" src="/reports/{{ latest_report }}"></iframe>
+        {% else %}
+        <div class="no-reports">
+            <h3>No Reports Yet</h3>
+            <p>Click "Run Analysis" to generate your first performance report</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // WebSocket connection
+        const socket = io();
+
+        socket.on('connected', (data) => {
+            console.log('Connected to dashboard:', data.message);
+        });
+
+        socket.on('analysis_started', (data) => {
+            updateStatus('running', data.message);
+            document.getElementById('run-btn').disabled = true;
+        });
+
+        socket.on('analysis_complete', (data) => {
+            updateStatus('ready', 'Analysis complete!');
+            document.getElementById('run-btn').disabled = false;
+
+            // Auto-refresh after 2 seconds
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        });
+
+        socket.on('analysis_error', (data) => {
+            updateStatus('ready', 'Analysis failed');
+            document.getElementById('run-btn').disabled = false;
+            alert('Analysis failed: ' + data.error);
+        });
+
+        function updateStatus(state, text) {
+            const dot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+
+            if (state === 'running') {
+                dot.classList.add('running');
+            } else {
+                dot.classList.remove('running');
+            }
+
+            statusText.textContent = text;
+        }
+
+        async function runAnalysis() {
+            try {
+                const response = await fetch('/api/run-analysis', {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    alert(data.error || 'Failed to start analysis');
+                }
+            } catch (error) {
+                alert('Error starting analysis: ' + error.message);
+            }
+        }
+
+        function loadReport(filename) {
+            document.getElementById('report-frame').src = '/reports/' + filename;
+        }
+    </script>
+</body>
+
+</html>

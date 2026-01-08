@@ -145,3 +145,44 @@ func test_negative_healing_does_nothing():
 
 # Note: Removed test_multiple_invincibility_calls_extend_duration due to timing flakiness
 # Core invincibility functionality is already well-tested by other tests
+
+# ============================================
+# HEALTH LIMIT EDGE CASES (Ollama Recommendations)
+# ============================================
+
+func test_damage_at_max_health():
+	# Verify behavior when taking damage while at maximum health
+	assert_eq(health_component.current_health, 100, "Should start at max health")
+	health_component.take_damage(25, null)
+	assert_eq(health_component.current_health, 75, "Should reduce from max health correctly")
+
+func test_heal_above_max_health():
+	# Verify healing cannot exceed max health
+	health_component.take_damage(10, null) # Now at 90
+	health_component.heal(50) # Try to heal to 140
+	assert_eq(health_component.current_health, 100, "Healing should cap at max health")
+
+func test_health_cannot_exceed_max_after_multiple_heals():
+	health_component.take_damage(50, null) # Now at 50
+	health_component.heal(30) # Now at 80
+	health_component.heal(30) # Try to go to 110
+	assert_eq(health_component.current_health, 100, "Multiple heals should not exceed max")
+
+func test_massive_damage_stops_at_zero():
+	# Verify health stops at exactly zero with massive damage
+	health_component.take_damage(999999, null)
+	assert_eq(health_component.current_health, 0, "Massive damage should stop at zero")
+
+func test_health_at_zero_stays_at_zero():
+	# Verify health stays at zero after death
+	health_component.take_damage(100, null)
+	assert_eq(health_component.current_health, 0, "Should be at zero")
+	health_component.take_damage(50, null)
+	assert_eq(health_component.current_health, 0, "Should stay at zero after death")
+
+func test_cannot_heal_when_dead():
+	health_component.take_damage(100, null) # Dead
+	watch_signals(health_component)
+	health_component.heal(50)
+	assert_eq(health_component.current_health, 0, "Cannot heal when dead")
+	assert_signal_not_emitted(health_component, "healed", "Should not emit healed signal when dead")

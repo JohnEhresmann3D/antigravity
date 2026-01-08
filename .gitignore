@@ -53,6 +53,7 @@ __pycache__/
 
 # Project analysis
 project_analysis.json
+# performance_report.html # User requested push
 
 # Temporary files
 *.tmp

@@ -107,10 +107,9 @@ func _perform_gravity_flip():
 	tween.set_parallel(true)
 	tween.tween_property(self, "rotation", original_rotation + PI * 2, 0.4).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(self, "position:y", position.y + 20, 0.4).set_ease(Tween.EASE_IN_OUT)
-	# Pulse the scale during spin
+	# Scale pulse: shrink then expand
 	tween.tween_property(animated_sprite, "scale", original_scale * 0.8, 0.2).set_ease(Tween.EASE_IN)
-	await get_tree().create_timer(0.2).timeout
-	tween.tween_property(animated_sprite, "scale", original_scale * 1.1, 0.2).set_ease(Tween.EASE_OUT)
+	tween.tween_property(animated_sprite, "scale", original_scale * 1.1, 0.2).set_ease(Tween.EASE_OUT).set_delay(0.2)
 	await tween.finished
 	
 	# Flip the sprite vertically
