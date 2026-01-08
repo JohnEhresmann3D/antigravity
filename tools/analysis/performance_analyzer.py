@@ -130,6 +130,53 @@ HTML_TEMPLATE = """
         .filter-btn.medium { border-color: var(--warning); }
         .filter-btn.low { border-color: var(--accent); }
         .file-item.hidden { display: none; }
+        
+        /* Function-level styles */
+        .function-card {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            border-left: 3px solid #47a6ff;
+        }
+        .function-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .function-signature {
+            font-family: monospace;
+            color: #47a6ff;
+            font-weight: bold;
+        }
+        .function-meta {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+        .complexity-badge {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .complexity-low { background: #2cc990; color: #000; }
+        .complexity-medium { background: #ffb142; color: #000; }
+        .complexity-high { background: #ff9800; color: #000; }
+        .complexity-very-high { background: #ff5252; color: #fff; }
+        .hot-function {
+            background: rgba(255, 82, 82, 0.1);
+            border-left-color: #ff5252;
+        }
+        .hot-badge {
+            background: #ff5252;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -264,21 +311,72 @@ HTML_TEMPLATE = """
             const details = document.createElement('div');
             details.className = 'file-details';
             
-            file.issues.forEach(issue => {
-                const div = document.createElement('div');
-                div.className = `issue ${issue.severity}`;
-                div.dataset.severity = issue.severity;
-                div.dataset.type = issue.type;
-                div.innerHTML = `
-                    <div>
-                        <span class="issue-line">Line ${issue.line}</span>
-                        <span class="issue-type">[${issue.type}]</span>
-                        ${issue.message}
-                    </div>
-                    <div class="code-snippet">${issue.snippet}</div>
-                `;
-                details.appendChild(div);
-            });
+            // Render functions if available
+            if (file.functions && file.functions.length > 0) {
+                file.functions.forEach(func => {
+                    if (func.issues.length === 0) return; // Skip functions without issues
+                    
+                    const funcCard = document.createElement('div');
+                    funcCard.className = `function-card ${func.is_hot ? 'hot-function' : ''}`;
+                    
+                    // Complexity badge color
+                    let complexityClass = 'complexity-low';
+                    if (func.complexity >= 16) complexityClass = 'complexity-very-high';
+                    else if (func.complexity >= 11) complexityClass = 'complexity-high';
+                    else if (func.complexity >= 6) complexityClass = 'complexity-medium';
+                    
+                    funcCard.innerHTML = `
+                        <div class="function-header">
+                            <span class="function-signature">
+                                ${func.signature}
+                                ${func.is_hot ? '<span class="hot-badge">🔥 HOT</span>' : ''}
+                            </span>
+                            <span class="complexity-badge ${complexityClass}">
+                                Complexity: ${func.complexity}
+                            </span>
+                        </div>
+                        <div class="function-meta">
+                            Lines ${func.start_line}-${func.end_line} · ${func.issues.length} issue(s)
+                        </div>
+                    `;
+                    
+                    // Add issues for this function
+                    func.issues.forEach(issue => {
+                        const div = document.createElement('div');
+                        div.className = `issue ${issue.severity}`;
+                        div.dataset.severity = issue.severity;
+                        div.dataset.type = issue.type;
+                        div.innerHTML = `
+                            <div>
+                                <span class="issue-line">Line ${issue.line}</span>
+                                <span class="issue-type">[${issue.type}]</span>
+                                ${issue.message}
+                            </div>
+                            <div class="code-snippet">${issue.snippet}</div>
+                        `;
+                        funcCard.appendChild(div);
+                    });
+                    
+                    details.appendChild(funcCard);
+                });
+            } else {
+                // Fallback: show issues without function grouping
+                file.issues.forEach(issue => {
+                    const div = document.createElement('div');
+                    div.className = `issue ${issue.severity}`;
+                    div.dataset.severity = issue.severity;
+                    div.dataset.type = issue.type;
+                    div.innerHTML = `
+                        <div>
+                            <span class="issue-line">Line ${issue.line}</span>
+                            <span class="issue-type">[${issue.type}]</span>
+                            ${issue.message}
+                        </div>
+                        <div class="code-snippet">${issue.snippet}</div>
+                    `;
+                    details.appendChild(div);
+                });
+            }
             
             item.appendChild(header);
             item.appendChild(details);
@@ -385,6 +483,7 @@ class PerformanceAnalyzer:
         self.stats = {
             "total_files": 0,
             "total_lines": 0,
+            "total_functions": 0,
             "high": 0,
             "medium": 0,
             "low": 0
@@ -410,6 +509,10 @@ class PerformanceAnalyzer:
             
         lines = content.split('\n')
         file_issues = []
+        
+        # Parse functions first
+        functions = self._parse_functions(lines)
+        self.stats["total_functions"] += len(functions)
         
         # State tracking
         in_process_func = False
@@ -560,13 +663,91 @@ class PerformanceAnalyzer:
         penalty = (high_count * 15) + (medium_count * 2) + (low_count * 0.5)
         score = max(0, 100 - penalty)
         
+        # Assign issues to functions
+        self._assign_issues_to_functions(file_issues, functions)
+        
         return {
             "path": str(path.relative_to(self.root_dir)),
             "score": score,
             "issues": file_issues,
+            "functions": functions,
             "lines": len(lines)
         }
 
+    def _parse_functions(self, lines: List[str]) -> List[Dict]:
+        """Parse all function definitions and their boundaries"""
+        functions = []
+        current_func = None
+        
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            indent = len(line) - len(line.lstrip())
+            
+            # Detect function start
+            func_match = re.match(r'^\s*func\s+(\w+)', line)
+            if func_match:
+                # Save previous function
+                if current_func:
+                    current_func['end_line'] = i
+                    current_func['complexity'] = self._calculate_complexity(lines, current_func['start_line'], i)
+                    functions.append(current_func)
+                
+                # Start new function
+                func_name = func_match.group(1)
+                current_func = {
+                    'name': func_name,
+                    'signature': stripped,
+                    'start_line': i + 1,
+                    'end_line': None,
+                    'indent': indent,
+                    'issues': [],
+                    'complexity': 1,
+                    'is_hot': func_name in ['_process', '_physics_process', '_input', '_unhandled_input']
+                }
+        
+        # Close last function
+        if current_func:
+            current_func['end_line'] = len(lines)
+            current_func['complexity'] = self._calculate_complexity(lines, current_func['start_line'], len(lines))
+            functions.append(current_func)
+        
+        return functions
+    
+    def _calculate_complexity(self, lines: List[str], start: int, end: int) -> int:
+        """Calculate cyclomatic complexity for a function"""
+        complexity = 1  # Base complexity
+        
+        for i in range(start, min(end, len(lines))):
+            line = lines[i].strip()
+            
+            # Count decision points
+            complexity += line.count('if ')
+            complexity += line.count('elif ')
+            complexity += line.count('while ')
+            complexity += line.count('for ')
+            complexity += line.count(' and ')
+            complexity += line.count(' or ')
+            complexity += line.count('match ')
+            complexity += line.count('case ')
+        
+        return complexity
+    
+    def _assign_issues_to_functions(self, issues: List[Dict], functions: List[Dict]):
+        """Assign each issue to its containing function"""
+        for issue in issues:
+            line_num = issue['line']
+            assigned = False
+            
+            for func in functions:
+                if func['start_line'] <= line_num <= func['end_line']:
+                    func['issues'].append(issue)
+                    assigned = True
+                    break
+            
+            # If not in any function, it's module-level code
+            if not assigned:
+                issue['function'] = None
+    
     def _get_snippet(self, lines, index, current_line):
         start = max(0, index - 1)
         end = min(len(lines), index + 2)
