@@ -1,0 +1,11 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cf5vxwdcixyqa"]
+
+[ext_resource type="Texture2D" uid="uid://cfehibe3q3bn0" path="res://assets/sprites/tilesets/tileset_level1_structure_ai.png" id="1_84yyv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8tc5d"]
+texture = ExtResource("1_84yyv")
+17:52/size_in_atlas = Vector2i(30, 7)
+17:52/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_8tc5d")

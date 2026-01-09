@@ -306,10 +306,11 @@ Level 1 serves as the **tutorial and introduction** to Antigravity. Players lear
 ## ⚙️ Technical Implementation Notes
 
 ### Tileset Requirements
-- **Platform Tiles**: 32x32px
-- **Wall Tiles**: 32x32px
+- **Platform Tiles**: 16x16px (SNES-style)
+- **Wall Tiles**: 16x16px (SNES-style)
 - **Background Tiles**: 64x64px (parallax)
 - **Special**: Breakable wall variant
+- **Tileset Format**: Single unified sheet combining walls, platforms, and props
 
 ### Scene Structure
 ```
